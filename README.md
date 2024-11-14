@@ -1,3 +1,3 @@
-# Ohtu miniprojekti työ :D 
+## Ohtu miniprojekti boilerplate
 
-[Speksi](https://ohjelmistotuotanto-hy.github.io/speksi/)
+Lue [täältä](https://ohjelmistotuotanto-hy.github.io/flask/) lisää.
