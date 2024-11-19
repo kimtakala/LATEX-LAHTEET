@@ -35,9 +35,9 @@ def create_book(book: SourceBook):
     sql = f"""
         WITH q AS (
             INSERT INTO {schema_name}.source
-            (title, year) 
+            (title, year, bibtex_key) 
             VALUES
-            (:title, :year)
+            (:title, :year, :bibtex_key)
             RETURNING source_id
         )
         INSERT INTO {schema_name}.source_book
@@ -49,6 +49,7 @@ def create_book(book: SourceBook):
     db.session.execute(
         text(sql),
         {
+            "bibtex_key": book.bibtex_key,
             "title": book.title,
             "year": book.year,
             "publisher": book.publisher,

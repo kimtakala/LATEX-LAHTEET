@@ -1,5 +1,6 @@
 CREATE TABLE lahteet.source (
     source_id SERIAL PRIMARY KEY,
+    bibtex_key TEXT NOT NULL UNIQUE,
     title TEXT NOT NULL,
     year INTEGER NOT NULL
 );

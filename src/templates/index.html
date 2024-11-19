@@ -20,16 +20,24 @@ endblock %} {% block body %}
                 <option value="book">Kirja</option>
             </select>
 
+            <label for="bibtex_key">Avain</label>
+            <input
+                type="text"
+                name="bibtex_key"
+                placeholder="Avain"
+                oninput="this.value = this.value.replace(/[^0-9a-zA-Z]/, '')"
+            />
+
             <label for="title">Otsikko</label>
             <input type="text" name="title" placeholder="Otsikko" />
 
-            <label for="title">Kirjoittaja</label>
+            <label for="author">Kirjoittaja</label>
             <input type="text" name="author" placeholder="Kirjoittaja" />
 
-            <label for="title">Julkaisija</label>
+            <label for="publisher">Julkaisija</label>
             <input type="text" name="publisher" placeholder="Julkaisija" />
 
-            <label for="title">Vuosi</label>
+            <label for="year">Vuosi</label>
             <input
                 type="text"
                 oninput="this.value = this.value.replace(/[^0-9]/, '')"

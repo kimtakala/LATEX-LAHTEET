@@ -13,6 +13,7 @@ def index():
 def source():
     book = SourceBook(
         0,
+        request.form["bibtex_key"],
         request.form["title"],
         request.form["year"],
         0,
