@@ -1,34 +1,68 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block title %} BibTex -lähdehallintatyökalu {%
+endblock %} {% block body %}
 
-{% block title %}
-Todo app
-{% endblock %}
+<button id="add-source-btn" class="circle" title="Lisää lähde">
+    <i class="fa-solid fa-plus"></i>
+</button>
 
-{% block body %}
+<form action="/source" method="POST" id="add-source-form">
+    <div class="inner">
+        <div class="top-row">
+            <h2>Lisää lähde</h2>
+            <button class="close" type="button">
+                <i class="fa-solid fa-x"></i>
+            </button>
+        </div>
 
-<h2>Todo app</h2>
+        <div class="content">
+            <label for="type">Tyyppi</label>
+            <select name="type">
+                <option value="book">Kirja</option>
+            </select>
 
-<div>
-  things still unfinished: {{ unfinished }}
-</div>
+            <label for="title">Otsikko</label>
+            <input type="text" name="title" placeholder="Otsikko" />
 
-<ul>
-  {% for todo in todos %}
-    <li style="display: flex">
-      <div>
-        {{ todo }} 
-      </div>
-      {% if not todo.done %}
-        <form action="/toggle_todo/{{ todo.id }}" method="post" style="margin-left: 10px;">
-          <button type="submit">mark as done</button>
-        </form>
-      {% endif %}
-    </li>
-  {% endfor %}
-</ul>
+            <label for="title">Kirjoittaja</label>
+            <input type="text" name="author" placeholder="Kirjoittaja" />
 
-<div>
-  <a href="/new_todo">Create new todo</a>
-</div>
+            <label for="title">Julkaisija</label>
+            <input type="text" name="publisher" placeholder="Julkaisija" />
+
+            <label for="title">Vuosi</label>
+            <input
+                type="text"
+                oninput="this.value = this.value.replace(/[^0-9]/, '')"
+                name="year"
+                placeholder="Vuosi"
+            />
+
+            <button type="submit" class="btn primary">Lisää</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    const addSourceBtn = document.getElementById('add-source-btn');
+    const addSourceForm = document.getElementById('add-source-form');
+    const addSourceFormSubmitButton = document.querySelector(
+        '#add-source-form button[type="submit"]',
+    );
+    const addSourceFormCloseButton = document.querySelector(
+        '#add-source-form button.close',
+    );
+
+    addSourceBtn.onclick = () => {
+        addSourceForm.classList.add('show');
+    };
+
+    const closeAddSourceForm = () => addSourceForm.classList.remove('show');
+
+    addSourceFormCloseButton.onclick = closeAddSourceForm;
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAddSourceForm();
+    });
+</script>
 
 {% endblock %}

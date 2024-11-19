@@ -1,0 +1,65 @@
+/* NOTE: Kyseessä on index.html -templateen liittyvät tyylittelyt, ei pääasiallinen tyylitiedosto (main.css) */
+
+#add-source-form {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity var(--transition-duration) ease-out;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-source-form.show {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+#add-source-form .inner {
+    background-color: white;
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 30em;
+    margin: 0 1em;
+}
+
+#add-source-form .inner .top-row {
+    padding: 0.7em 0.6em;
+    padding-left: 1.1em;
+    padding-bottom: 0;
+}
+
+#add-source-form .inner .content {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    padding-top: 1em;
+}
+
+#add-source-form h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 0;
+}
+
+#add-source-form .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#add-source-form button[type='submit'] {
+    align-self: flex-end;
+    margin-top: 2em;
+}
+
+#add-source-btn {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+}

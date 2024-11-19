@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1.1 (Python 3.12.6 on linux)" generated="2024-11-19T15:05:31.286582" rpa="false" schemaversion="5">
+<suite id="s1" name="Story Tests" source="/home/tatu/_repos/LATEX-LAHTEET/src/story_tests">
+<suite id="s1-s1" name="Todos" source="/home/tatu/_repos/LATEX-LAHTEET/src/story_tests/todos.robot">
+<kw name="Open And Configure Browser" owner="resource" type="SETUP">
+<if>
+<branch type="IF" condition="$BROWSER == 'chrome'">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:31.883544" elapsed="0.000090"/>
+</kw>
+<status status="NOT RUN" start="2024-11-19T15:05:31.882336" elapsed="0.001465"/>
+</branch>
+<branch type="ELSE IF" condition="$BROWSER == 'firefox'">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-11-19T15:05:31.885128" level="INFO">${options} = &lt;selenium.webdriver.firefox.options.Options object at 0x717f028503b0&gt;</msg>
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].FirefoxOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-11-19T15:05:31.884267" elapsed="0.000935"/>
+</kw>
+<status status="PASS" start="2024-11-19T15:05:31.883895" elapsed="0.001417"/>
+</branch>
+<status status="PASS" start="2024-11-19T15:05:31.882285" elapsed="0.003107"/>
+</if>
+<if>
+<branch type="IF" condition="$HEADLESS == 'true'">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>0</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:31.885831" elapsed="0.000051"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:31.886027" elapsed="0.000047"/>
+</kw>
+<status status="NOT RUN" start="2024-11-19T15:05:31.885533" elapsed="0.000612"/>
+</branch>
+<branch type="ELSE">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2024-11-19T15:05:31.886357" elapsed="0.000432"/>
+</kw>
+<status status="PASS" start="2024-11-19T15:05:31.886219" elapsed="0.000647"/>
+</branch>
+<status status="PASS" start="2024-11-19T15:05:31.885495" elapsed="0.001430"/>
+</if>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:31.887502" level="INFO">Opening browser 'firefox' to base url 'None'.</msg>
+<arg>browser=${BROWSER}</arg>
+<arg>options=${options}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-11-19T15:05:31.887086" elapsed="4.736141"/>
+</kw>
+<status status="PASS" start="2024-11-19T15:05:31.881883" elapsed="4.741639"/>
+</kw>
+<test id="s1-s1-t1" name="At start there are no todos" line="8">
+<kw name="Reset Todos" owner="resource" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:36.625731" level="INFO">Opening url 'http://localhost:5001/reset_db'</msg>
+<arg>${RESET_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-19T15:05:36.625326" elapsed="0.634879"/>
+</kw>
+<status status="PASS" start="2024-11-19T15:05:36.624651" elapsed="0.635906"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:37.261527" level="INFO">Opening url 'http://localhost:5001'</msg>
+<arg>${HOME_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-19T15:05:37.261088" elapsed="0.572989"/>
+</kw>
+<kw name="Title Should Be" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:38.958117" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-11-19T15:05:38.958559" level="FAIL">Title should have been 'Todo app' but was ''.</msg>
+<arg>Todo app</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<status status="FAIL" start="2024-11-19T15:05:37.834761" elapsed="1.125920">Title should have been 'Todo app' but was ''.</status>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>things still unfinished: 0</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:38.961232" elapsed="0.000083"/>
+</kw>
+<status status="FAIL" start="2024-11-19T15:05:36.623748" elapsed="2.338100">Title should have been 'Todo app' but was ''.</status>
+</test>
+<test id="s1-s1-t2" name="After adding a todo, there is one" line="13">
+<kw name="Reset Todos" owner="resource" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:38.964738" level="INFO">Opening url 'http://localhost:5001/reset_db'</msg>
+<arg>${RESET_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-19T15:05:38.964296" elapsed="0.574896"/>
+</kw>
+<status status="PASS" start="2024-11-19T15:05:38.963649" elapsed="0.575863"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:39.540469" level="INFO">Opening url 'http://localhost:5001'</msg>
+<arg>${HOME_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-19T15:05:39.540058" elapsed="0.567363"/>
+</kw>
+<kw name="Click Link" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:40.108906" level="INFO">Clicking link 'Create new todo'.</msg>
+<msg time="2024-11-19T15:05:41.684747" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-11-19T15:05:41.685144" level="FAIL">Link with locator 'Create new todo' not found.</msg>
+<arg>Create new todo</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="FAIL" start="2024-11-19T15:05:40.108066" elapsed="1.579859">Link with locator 'Create new todo' not found.</status>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>content</arg>
+<arg>Buy milk</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:41.688624" elapsed="0.000093"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>Create</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:41.689148" elapsed="0.000090"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>things still unfinished: 1</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:41.689624" elapsed="0.000082"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>Buy milk</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:41.690094" elapsed="0.000081"/>
+</kw>
+<status status="FAIL" start="2024-11-19T15:05:38.962639" elapsed="2.728081">Link with locator 'Create new todo' not found.</status>
+</test>
+<test id="s1-s1-t3" name="After adding two todos and marking one done, there is one unfinished" line="21">
+<kw name="Reset Todos" owner="resource" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:41.694004" level="INFO">Opening url 'http://localhost:5001/reset_db'</msg>
+<arg>${RESET_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-19T15:05:41.693527" elapsed="0.575775"/>
+</kw>
+<status status="PASS" start="2024-11-19T15:05:41.692784" elapsed="0.576881"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:42.270625" level="INFO">Opening url 'http://localhost:5001'</msg>
+<arg>${HOME_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-19T15:05:42.270209" elapsed="0.579109"/>
+</kw>
+<kw name="Click Link" owner="SeleniumLibrary">
+<msg time="2024-11-19T15:05:42.850421" level="INFO">Clicking link 'Create new todo'.</msg>
+<msg time="2024-11-19T15:05:44.393173" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-11-19T15:05:44.393510" level="FAIL">Link with locator 'Create new todo' not found.</msg>
+<arg>Create new todo</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="FAIL" start="2024-11-19T15:05:42.849962" elapsed="1.544684">Link with locator 'Create new todo' not found.</status>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>content</arg>
+<arg>Buy milk</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.395280" elapsed="0.000116"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>Create</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.395789" elapsed="0.000083"/>
+</kw>
+<kw name="Click Link" owner="SeleniumLibrary">
+<arg>Create new todo</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.396224" elapsed="0.000072"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>content</arg>
+<arg>Clean house</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.396628" elapsed="0.000072"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>Create</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.397048" elapsed="0.000069"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>//li[div[contains(text(), 'Buy milk')]]/form/button</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.397449" elapsed="0.000067"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>things still unfinished: 1</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.397956" elapsed="0.000074"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>Buy milk, done</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2024-11-19T15:05:44.398448" elapsed="0.000102"/>
+</kw>
+<status status="FAIL" start="2024-11-19T15:05:41.691565" elapsed="2.707653">Link with locator 'Create new todo' not found.</status>
+</test>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-11-19T15:05:44.400804" elapsed="1.605403"/>
+</kw>
+<status status="FAIL" start="2024-11-19T15:05:31.370505" elapsed="14.635992"/>
+</suite>
+<status status="FAIL" start="2024-11-19T15:05:31.288077" elapsed="14.720030"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="3" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="3" skip="0" id="s1" name="Story Tests">Story Tests</stat>
+<stat pass="0" fail="3" skip="0" id="s1-s1" name="Todos">Story Tests.Todos</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
