@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 
 selenium-screenshot-*.png
+output.xml
