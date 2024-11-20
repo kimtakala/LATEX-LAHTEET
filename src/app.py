@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request
+from flask import flash, redirect, render_template, request
 from entities.source_book import SourceBook
 from repositories import source_book_repository
 from config import app
@@ -25,6 +25,7 @@ def index_post():
 
     try:
         source_book_repository.create_book(book)
+        flash(f"Lähde {book.bibtex_key} lisätty onnistuneesti!", "success")
         return redirect("/")
     except UserInputError as error:
         return render_template(

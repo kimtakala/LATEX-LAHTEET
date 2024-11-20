@@ -111,11 +111,44 @@ button:focus {
     border-color: var(--color-blue-dark);
 }
 
-.error {
+@keyframes disappear {
+    95% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.error,
+.message {
     background-color: #ffb3b7;
     border: 2px solid #fc5c65;
     border-radius: 0.4em;
     padding: 0.4em 0.6em;
     margin-bottom: 0.5em;
     margin-top: 1.2em;
+    animation: disappear 6s ease-out forwards;
+    cursor: pointer;
+}
+
+.message.success {
+    background-color: #b3ffbb;
+    border-color: #5afc6a;
+}
+
+.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.message.hide {
+    display: none;
 }

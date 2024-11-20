@@ -31,3 +31,6 @@ class Source:
 
         if len(self.year) == 0:
             raise UserInputError("Julkaisuvuosi vaaditaan")
+
+        if not re.compile("^[0-9]+$").match(self.year):
+            raise UserInputError("Julkaisuvuoden on oltava numero")
