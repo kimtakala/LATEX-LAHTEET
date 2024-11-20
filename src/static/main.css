@@ -138,6 +138,9 @@ button:focus {
     padding: 0.4em 0.6em;
     margin-bottom: 0.5em;
     margin-top: 1.2em;
+}
+
+.message {
     animation: disappear 6s ease-out forwards;
     cursor: pointer;
 }
