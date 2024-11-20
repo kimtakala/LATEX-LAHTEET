@@ -32,6 +32,7 @@ def get_books():
 
 def create_book(book: SourceBook):
     book.validate()
+
     # Tapa lisätä useihin tauluihin siten, että pääsemme kätevästi
     #  käsiksi edellisen lisäyksen ID:hen
     sql = f"""

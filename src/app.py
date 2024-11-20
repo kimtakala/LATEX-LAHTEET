@@ -31,3 +31,9 @@ def index_post():
         return render_template(
             "index.html", show_add_form=True, error=error, form_data=request.form
         )
+    except Exception:
+        flash(
+            f"Lähteen lisääminen epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
+            "error",
+        )
+        return redirect("/")
