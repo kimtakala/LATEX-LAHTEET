@@ -110,3 +110,12 @@ button:focus {
     background-color: var(--color-blue-dark);
     border-color: var(--color-blue-dark);
 }
+
+.error {
+    background-color: #ffb3b7;
+    border: 2px solid #fc5c65;
+    border-radius: 0.4em;
+    padding: 0.4em 0.6em;
+    margin-bottom: 0.5em;
+    margin-top: 1.2em;
+}

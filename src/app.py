@@ -2,25 +2,31 @@ from flask import redirect, render_template, request
 from entities.source_book import SourceBook
 from repositories import source_book_repository
 from config import app
+from util import UserInputError
 
 
-@app.route("/")
-def index():
+@app.route("/", methods=["GET"])
+def index_get():
     return render_template("index.html")
 
 
-@app.route("/source", methods=["POST"])
-def source():
+@app.route("/", methods=["POST"])
+def index_post():
+    form = request.form
     book = SourceBook(
         0,
-        request.form["bibtex_key"],
-        request.form["title"],
-        request.form["year"],
+        form["bibtex_key"] if "bibtex_key" in form else "",
+        form["title"] if "title" in form else "",
+        form["year"] if "year" in form else "",
+        form["author"] if "author" in form else "",
         0,
-        request.form["author"],
-        request.form["publisher"],
+        form["publisher"] if "publisher" in form else "",
     )
 
-    # TODO: Validoi syöte ja palauta virheitä käyttäjälle
-    source_book_repository.create_book(book)
-    return redirect("/")
+    try:
+        source_book_repository.create_book(book)
+        return redirect("/")
+    except UserInputError as error:
+        return render_template(
+            "index.html", show_add_form=True, error=error, form_data=request.form
+        )

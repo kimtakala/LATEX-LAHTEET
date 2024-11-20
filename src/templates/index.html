@@ -5,7 +5,12 @@ endblock %} {% block body %}
     <i class="fa-solid fa-plus"></i>
 </button>
 
-<form action="/source" method="POST" id="add-source-form">
+<form
+    action="/"
+    method="POST"
+    id="add-source-form"
+    class="{% if show_add_form %}show{% endif %}"
+>
     <div class="inner">
         <div class="top-row">
             <h2>Lisää lähde</h2>
@@ -25,17 +30,18 @@ endblock %} {% block body %}
                 type="text"
                 name="bibtex_key"
                 placeholder="Avain"
-                oninput="this.value = this.value.replace(/[^0-9a-zA-Z]/, '')"
+                oninput="this.value = this.value.replace(/[^0-9a-zA-Z\-_:]/, '')"
+                value="{{form_data["bibtex_key"] or "" if form_data else ""}}" 
             />
 
             <label for="title">Otsikko</label>
-            <input type="text" name="title" placeholder="Otsikko" />
+            <input type="text" name="title" placeholder="Otsikko" value="{{form_data["title"] or "" if form_data else ""}}" />
 
             <label for="author">Kirjoittaja</label>
-            <input type="text" name="author" placeholder="Kirjoittaja" />
+            <input type="text" name="author" placeholder="Kirjoittaja" value="{{form_data["author"] or "" if form_data else ""}}" />
 
             <label for="publisher">Julkaisija</label>
-            <input type="text" name="publisher" placeholder="Julkaisija" />
+            <input type="text" name="publisher" placeholder="Julkaisija" value="{{form_data["publisher"] or "" if form_data else ""}}" />
 
             <label for="year">Vuosi</label>
             <input
@@ -43,9 +49,14 @@ endblock %} {% block body %}
                 oninput="this.value = this.value.replace(/[^0-9]/, '')"
                 name="year"
                 placeholder="Vuosi"
+                value="{{form_data["year"] or "" if form_data else ""}}" 
             />
 
             <button type="submit" class="btn primary">Lisää</button>
+
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
         </div>
     </div>
 </form>

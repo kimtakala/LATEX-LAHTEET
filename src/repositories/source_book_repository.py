@@ -8,10 +8,11 @@ def get_books():
     sql = f"""
         SELECT
             s.source_id,
+            s.bibtex_key,
             s.title,
             s.year
+            s.author,
             sb.source_book_id,
-            sb.author,
             sb.publisher,
 
         FROM {schema_name}.source_book sb
@@ -30,20 +31,21 @@ def get_books():
 
 
 def create_book(book: SourceBook):
+    book.validate()
     # Tapa lisätä useihin tauluihin siten, että pääsemme kätevästi
     #  käsiksi edellisen lisäyksen ID:hen
     sql = f"""
         WITH q AS (
             INSERT INTO {schema_name}.source
-            (title, year, bibtex_key) 
+            (title, year, bibtex_key, kind, author) 
             VALUES
-            (:title, :year, :bibtex_key)
+            (:title, :year, :bibtex_key, 'book', :author)
             RETURNING source_id
         )
         INSERT INTO {schema_name}.source_book
-            (source_id, publisher, author)
+            (source_id, publisher)
             VALUES
-            ((SELECT source_id FROM q), :publisher, :author)
+            ((SELECT source_id FROM q), :publisher)
 
     """
     db.session.execute(
