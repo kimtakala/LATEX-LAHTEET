@@ -11,6 +11,10 @@
     --color-darkgray: #4b6584;
     --transition-duration: 0.1s;
     --border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+* {
     font-family:
         'Poppins',
         system-ui,
@@ -24,7 +28,6 @@
         'Open Sans',
         'Helvetica Neue',
         sans-serif;
-    font-weight: 500;
 }
 
 button.circle {
