@@ -12,6 +12,22 @@ endblock %} {% block body %}
 {% endwith %}
 </div>
 
+<div id="books">
+    <h1>Lähteet</h1>
+
+    <div class="book-list">
+        {% for book in books %}
+        <div class="book">
+            <div class="source-info">
+                <div class="book-title">{{ book.title }}</div>
+                <div class="book-author">{{ book.author }}</div>
+                <div class="book-publisher">{{ book.publisher }}</div>
+                <div class="book-year">{{ book.year }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 <button id="add-source-btn" class="circle" title="Lisää lähde">
     <i class="fa-solid fa-plus"></i>
 </button>

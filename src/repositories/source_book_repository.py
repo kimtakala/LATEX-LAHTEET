@@ -10,10 +10,10 @@ def get_books():
             s.source_id,
             s.bibtex_key,
             s.title,
-            s.year
+            s.year,
             s.author,
             sb.source_book_id,
-            sb.publisher,
+            sb.publisher
 
         FROM {schema_name}.source_book sb
 

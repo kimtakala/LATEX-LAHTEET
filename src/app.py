@@ -7,8 +7,15 @@ from util import UserInputError
 
 @app.route("/", methods=["GET"])
 def index_get():
-    return render_template("index.html")
-
+    try:
+        books = source_book_repository.get_books()
+        return render_template("index.html", books=books)
+    except Exception:
+        flash(
+            f"Lähteiden haku epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
+            "error",
+        )
+        return render_template("index.html")
 
 @app.route("/", methods=["POST"])
 def index_post():
