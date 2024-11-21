@@ -44,3 +44,8 @@ def index_post():
             "error",
         )
         return redirect("/")
+
+@app.route("/reset_db", methods=["GET"])
+def reset_db():
+    source_book_repository.reset_db()
+    return redirect("/")

@@ -164,3 +164,4 @@ cython_debug/
 selenium-screenshot-*.png
 output.xml
 report.html
+interactive_console_output.xml

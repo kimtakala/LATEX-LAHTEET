@@ -60,3 +60,10 @@ def create_book(book: SourceBook):
         },
     )
     db.session.commit()
+
+def reset_db():
+    sql = f"""
+    TRUNCATE TABLE {schema_name}.source_book, {schema_name}.source;
+    """
+    db.session.execute(text(sql))
+    db.session.commit()

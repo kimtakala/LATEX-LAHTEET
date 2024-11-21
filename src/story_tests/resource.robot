@@ -19,11 +19,14 @@ Open And Configure Browser
     IF  $HEADLESS == 'true'
         Set Selenium Speed  0
         Call Method  ${options}  add_argument  --headless
+
+        # Tarvitaan ettei Lisää-nappi jää näytön ulkopuolelle
+        Call Method  ${options}  add_argument  --window-size\=1920,1080
     ELSE
         Set Selenium Speed  ${DELAY}
     END
     Open Browser  browser=${BROWSER}  options=${options}
 
-Reset Todos
+Reset Sources
     Go To  ${RESET_URL}
 

@@ -79,10 +79,10 @@ endblock %} {% block body %}
                 value="{{form_data["year"] or "" if form_data else ""}}" 
             />
 
-            <button type="submit" class="btn primary">Lisää</button>
+            <button type="submit" id="source-form-btn" class="btn primary">Lisää</button>
 
             {% if error %}
-            <div class="error">{{ error }}</div>
+            <div class="error" id="error">{{ error }}</div>
             {% endif %}
         </div>
     </div>
