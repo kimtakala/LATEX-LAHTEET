@@ -16,4 +16,6 @@ TEST_ENV=true
 SECRET_KEY=jokin satunnainen merkkijono
 ```
 
+Tämän jälkeen aktivoi python-virtuaaliympäristö komennolla `poetry shell`. Tämän jälkeen projektin ajaminen onnistuu komennolla `python3 src/index.py`.
+
 Lue [täältä](https://ohjelmistotuotanto-hy.github.io/flask/) lisää.
