@@ -10,12 +10,14 @@ def index_get():
     try:
         books = source_book_repository.get_books()
         return render_template("index.html", books=books)
-    except Exception:
+    except Exception as error:
         flash(
             f"Lähteiden haku epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
             "error",
         )
+        print(error)
         return render_template("index.html")
+
 
 @app.route("/", methods=["POST"])
 def index_post():
@@ -38,12 +40,14 @@ def index_post():
         return render_template(
             "index.html", show_add_form=True, error=error, form_data=request.form
         )
-    except Exception:
+    except Exception as error:
         flash(
             f"Lähteen lisääminen epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
             "error",
         )
+        print(error)
         return redirect("/")
+
 
 @app.route("/reset_db", methods=["GET"])
 def reset_db():
