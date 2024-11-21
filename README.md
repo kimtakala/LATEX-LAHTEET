@@ -1,7 +1,6 @@
-## Ohtu miniprojekti
+# BibTex -lähdehallintatyökalu 
 [![GHA workflow badge](https://github.com/Metanjarki/LATEX-LAHTEET/workflows/CI/badge.svg)](https://github.com/Metanjarki/LATEX-LAHTEET/actions)
 
-## LaTeX kirjaviittausten lisäys sovellus
 Sovelluksen tarkoitus on helpottaa kirjaviitausten keräämistä ja niiden käsittelyä
 
 ## Backlog
