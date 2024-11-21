@@ -11,7 +11,7 @@ Nykyisen backlogin voi nähdä [täältä](https://docs.google.com/spreadsheets/
 Asenna projektin riippuvuudet ajamalla `poetry install`. Tämän jälkeen laita projektin juureen `.env` -niminen tiedosto, joka sisältää ainakin seuraavat tiedot.
 
 ```
-DATABASE_URL=tietokannan osoite
+DATABASE_URL=Postgres-tietokannan osoite
 TEST_ENV=true
 SECRET_KEY=jokin satunnainen merkkijono
 ```
