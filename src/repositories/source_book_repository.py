@@ -61,6 +61,17 @@ def create_book(book: SourceBook):
     )
     db.session.commit()
 
+
+def delete_source(source_id):
+    sql = f"""
+        DELETE FROM
+        {schema_name}.source
+        WHERE source_id = :source_id
+    """
+    db.session.execute(text(sql), {"source_id":source_id})
+    db.session.commit()
+
+
 def reset_db():
     sql = f"""
     TRUNCATE TABLE {schema_name}.source_book, {schema_name}.source;

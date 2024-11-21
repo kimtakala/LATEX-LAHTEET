@@ -44,6 +44,18 @@ def index_post():
             "error",
         )
         return redirect("/")
+    
+@app.route("/delete/<int:source_id>", methods=["POST"])
+def delete_source(source_id):
+    try:
+        source_book_repository.delete_source(source_id)
+        return redirect("/")
+    except Exception:
+        flash(
+            f"Lähteen poistaminen epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
+            "error",
+        )
+        return redirect("/")
 
 @app.route("/reset_db", methods=["GET"])
 def reset_db():
