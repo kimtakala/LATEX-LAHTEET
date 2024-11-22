@@ -62,13 +62,13 @@ def create_book(book: SourceBook):
     db.session.commit()
 
 
-def delete_source(source_id):
+def delete_book(source_id):
     sql = f"""
         DELETE FROM
         {schema_name}.source
         WHERE source_id = :source_id
     """
-    db.session.execute(text(sql), {"source_id":source_id})
+    db.session.execute(text(sql), {"source_id": source_id})
     db.session.commit()
 
 

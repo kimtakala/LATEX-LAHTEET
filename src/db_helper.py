@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 def setup_db():
-    # Poista skeema
+    # Tyhjennä skeema
     sql = f"""
         DROP SCHEMA IF EXISTS {schema_name} CASCADE;
         CREATE SCHEMA {schema_name};

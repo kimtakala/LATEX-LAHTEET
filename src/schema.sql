@@ -6,7 +6,8 @@ CREATE TABLE lahteet.source (
     kind SOURCE_KIND NOT NULL,
     title TEXT NOT NULL,
     year INTEGER NOT NULL,
-    author TEXT NOT NULL
+    author TEXT NOT NULL,
+    note TEXT
 );
 
 CREATE TABLE lahteet.source_book (
@@ -21,4 +22,14 @@ CREATE TABLE lahteet.source_book (
     edition TEXT,
     month TEXT,
     note TEXT
+);
+
+CREATE TABLE lahteet.source_article (
+    source_article_id SERIAL PRIMARY KEY,
+    source_id INTEGER NOT NULL REFERENCES lahteet.source ON DELETE CASCADE,
+    journal TEXT NOT NULL,
+    volume INTEGER,
+    number INTEGER,
+    pages TEXT,
+    month TEXT
 );
