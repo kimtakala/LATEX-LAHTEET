@@ -26,6 +26,9 @@
     width: 100%;
     max-width: 30em;
     margin: 0 1em;
+    max-height: calc(100% - 1em);
+    display: flex;
+    flex-direction: column;
 }
 
 #add-source-form .inner .top-row {
@@ -39,6 +42,9 @@
     flex-direction: column;
     padding: 2em;
     padding-top: 1em;
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 0.2em;
 }
 
 #add-source-form h2 {

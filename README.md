@@ -20,5 +20,9 @@ Varmista että Postgres-tietokantasi on toiminnassa. Alusta sovelluksen skeema a
 
 Tämän jälkeen aktivoi python-virtuaaliympäristö komennolla `poetry shell`. Tämän jälkeen projektin ajaminen onnistuu komennolla `python3 src/index.py`.
 
+## Hyödyllistä tietää
+
+Mikäli tarkastelet tietokantaa `psql` -ohjelmalla, projektin käyttämää skeemaa pääsee tarkastelemaan ajamalla ensin kyselyn `SET search_path TO lahteet;`.
+
 ## Definition of done
 TODO
