@@ -64,8 +64,15 @@ label {
     opacity: 0.7;
 }
 
-label:not(:first-child) {
+label:not(:first-child),
+#add-form-fields label {
     margin-top: 1.2em;
+}
+
+label.required::after {
+    content: '*';
+    color: red;
+    margin-left: 0.2em;
 }
 
 button {
@@ -123,11 +130,12 @@ button:focus {
     }
 }
 
-.messages {
+#messages {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 1em;
+    right: 1em;
+    z-index: 100;
 }
 
 .error,

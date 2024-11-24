@@ -8,6 +8,7 @@
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 50;
     transition: opacity var(--transition-duration) ease-out;
     background-color: rgba(0, 0, 0, 0.4);
     display: flex;
@@ -23,10 +24,9 @@
 #add-source-form .inner {
     background-color: white;
     border-radius: var(--border-radius);
-    width: 100%;
-    max-width: 30em;
     margin: 0 1em;
     max-height: calc(100% - 1em);
+    max-width: calc(100% - 1em);
     display: flex;
     flex-direction: column;
 }
@@ -45,6 +45,11 @@
     flex: 1;
     overflow-y: auto;
     margin-bottom: 0.2em;
+}
+
+#add-form-fields {
+    display: flex;
+    flex-direction: column;
 }
 
 #add-source-form h2 {
@@ -70,26 +75,26 @@
     right: 1em;
 }
 
-#books {
+#sources {
     margin: 20px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
 }
 
-#books h1 {
+#sources h1 {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
 }
 
-.book-list {
+.source-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.book {
+.source {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -99,27 +104,27 @@
     cursor: pointer;
 }
 
-.book-info {
+.source-info {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.book-title {
+.source-title {
     font-weight: bold;
     font-size: 18px;
     color: #222;
     margin-bottom: 10px;
 }
 
-.book-author,
-.book-publisher,
-.book-year {
+.source-author,
+.source-publisher,
+.source-year {
     font-size: 14px;
     color: #555;
 }
 
-.book:hover {
+.source:hover {
     border-color: #888;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);

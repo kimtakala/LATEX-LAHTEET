@@ -1,29 +1,29 @@
 {% extends "layout.html" %} {% block title %} BibTex -lähdehallintatyökalu {%
 endblock %} {% block body %}
 
-
 <div id="messages">
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="message {{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category in
+    ["error", "success"] %}
+    <div class="message {{ category }}">{{ message }}</div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
 </div>
 
 <div id="books">
     <h1>Lähteet</h1>
 
-    <div class="book-list">
-        {% for book in books %}
-        <div class="book">
-            <div class="book-info">
-                <div class="book-title">{{ book.title }}</div>
-                <div class="book-author">{{ book.author }}</div>
-                <div class="book-publisher">{{ book.publisher }}</div>
-                <div class="book-year">{{ book.year }}</div>
-                <form action="{{ url_for('delete_source', source_id=book.source_id) }}" method="POST">
+    <div class="source-list">
+        {% for source in sources %}
+        <div class="source">
+            <div class="source-info">
+                <div class="source-title">{{ source.title }}</div>
+                <div class="source-author">{{ source.author }}</div>
+                <div class="source-publisher">{{ source.publisher }}</div>
+                <div class="source-year">{{ source.year }}</div>
+                <form
+                    action="{{ url_for('delete_source', source_id=source.source_id) }}"
+                    method="POST"
+                >
                     <button type="submit">Poista</button>
                 </form>
             </div>
@@ -51,73 +51,24 @@ endblock %} {% block body %}
         </div>
 
         <div class="content">
-            <label for="type">Tyyppi</label>
-            <select name="type">
+            <label for="add-field-type">Tyyppi</label>
+            <select name="type" id="add-field-type">
                 <option value="book">Kirja</option>
+                <option value="article">Artikkeli</option>
             </select>
 
-            <label for="bibtex_key">Avain</label>
-            <input
-                type="text"
-                name="bibtex_key"
-                placeholder="Avain"
-                oninput="this.value = this.value.replace(/[^0-9a-zA-Z\-_:]/, '')"
-                value="{{form_data["bibtex_key"] or "" if form_data else ""}}" 
-            />
+            <div id="add-form-fields"></div>
 
-            <label for="title">Otsikko</label>
-            <input type="text" name="title" placeholder="Otsikko" value="{{form_data["title"] or "" if form_data else ""}}" />
-
-            <label for="author">Kirjoittaja</label>
-            <input type="text" name="author" placeholder="Kirjoittaja" value="{{form_data["author"] or "" if form_data else ""}}" />
-
-            <label for="publisher">Julkaisija</label>
-            <input type="text" name="publisher" placeholder="Julkaisija" value="{{form_data["publisher"] or "" if form_data else ""}}" />
-
-            <label for="year">Vuosi</label>
-            <input
-                type="text"
-                oninput="this.value = this.value.replace(/[^0-9]/, '')"
-                name="year"
-                placeholder="Vuosi"
-                value="{{form_data["year"] or "" if form_data else ""}}" 
-            />
-
-            <button type="submit" id="source-form-btn" class="btn primary">Lisää</button>
-
-            {% if error %}
-            <div class="error" id="error">{{ error }}</div>
-            {% endif %}
+            <button type="submit" id="source-form-btn" class="btn primary">
+                Lisää
+            </button>
         </div>
     </div>
 </form>
 
 <script>
-    const addSourceBtn = document.getElementById('add-source-btn');
-    const addSourceForm = document.getElementById('add-source-form');
-    const addSourceFormSubmitButton = document.querySelector(
-        '#add-source-form button[type="submit"]',
-    );
-    const addSourceFormCloseButton = document.querySelector(
-        '#add-source-form button.close',
-    );
-    const messages = document.querySelectorAll('.message');
-
-    addSourceBtn.onclick = () => {
-        addSourceForm.classList.add('show');
-    };
-
-    const closeAddSourceForm = () => addSourceForm.classList.remove('show');
-
-    addSourceFormCloseButton.onclick = closeAddSourceForm;
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeAddSourceForm();
-    });
-
-    messages.forEach(message => {
-        message.onclick = () => message.classList.add('hide');
-    });
+    formFields = JSON.parse(`{{form_json|safe}}`);
 </script>
+<script src="{{ url_for('static',filename='index.js') }}"></script>
 
 {% endblock %}

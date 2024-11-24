@@ -2,7 +2,7 @@ from entities.source import Source
 from util import UserInputError
 
 
-class SourceBook(Source):
+class Book(Source):
     def __init__(
         self, source_id, bibtex_key, title, year, author, source_book_id, publisher
     ):

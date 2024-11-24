@@ -1,15 +1,27 @@
-from flask import flash, redirect, render_template, request
-from entities.source_book import SourceBook
-from repositories import source_book_repository
+from flask import flash, redirect, render_template, request, session
+from db_util import truncate_db
+from entities.article import Article
+from entities.book import Book
+from form_fields import get_fields_json
 from config import app
+from repositories.article_repository import ArticleRepository
+from repositories.book_repository import BookRepository
+from repositories.source_repository import SourceRepository
 from util import UserInputError
 
 
 @app.route("/", methods=["GET"])
 def index_get():
+    show_add_form = "show_add_form" in request.args
+    form_json = get_fields_json()
     try:
-        books = source_book_repository.get_books()
-        return render_template("index.html", books=books)
+        sources = SourceRepository.get()
+        return render_template(
+            "index.html",
+            sources=sources,
+            form_json=form_json,
+            show_add_form=show_add_form,
+        )
     except Exception as error:
         flash(
             f"Lähteiden haku epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
@@ -22,24 +34,55 @@ def index_get():
 @app.route("/", methods=["POST"])
 def index_post():
     form = request.form
-    book = SourceBook(
-        0,
-        form["bibtex_key"] if "bibtex_key" in form else "",
-        form["title"] if "title" in form else "",
-        form["year"] if "year" in form else "",
-        form["author"] if "author" in form else "",
-        0,
-        form["publisher"] if "publisher" in form else "",
-    )
+    print(form.__dict__)
+    source_type = form["type"]
+    added_key = ""
 
     try:
-        source_book_repository.create_book(book)
-        flash(f"Lähde {book.bibtex_key} lisätty onnistuneesti!", "success")
+        match source_type:
+            case "book":
+                book = Book(
+                    0,
+                    form["bibtex_key"] if "bibtex_key" in form else "",
+                    form["title"] if "title" in form else "",
+                    form["year"] if "year" in form else "",
+                    form["author"] if "author" in form else "",
+                    0,
+                    form["publisher"] if "publisher" in form else "",
+                )
+
+                BookRepository.create(book)
+                added_key = book.bibtex_key
+
+            case "article":
+                article = Article(
+                    0,
+                    form["bibtex_key"] if "bibtex_key" in form else "",
+                    form["title"] if "title" in form else "",
+                    form["year"] if "year" in form else "",
+                    form["author"] if "author" in form else "",
+                    0,
+                    form["journal"] if "journal" in form else "",
+                    form["volume"] if "volume" in form else "",
+                    form["number"] if "number" in form else "",
+                    form["pages"] if "pages" in form else "",
+                    form["month"] if "month" in form else "",
+                )
+
+                ArticleRepository.create(article)
+                added_key = article.bibtex_key
+
+            case _:
+                flash(f"Lähteen tyyppiä ei tueta", "error")
+                return redirect("/?show_add_form")
+
+        flash(f"Lähde {added_key} lisätty onnistuneesti!", "success")
         return redirect("/")
+
     except UserInputError as error:
-        return render_template(
-            "index.html", show_add_form=True, error=error, form_data=request.form
-        )
+        flash(str(error), "error")
+        return redirect("/?show_add_form")
+
     except Exception as error:
         flash(
             f"Lähteen lisääminen epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
@@ -52,7 +95,7 @@ def index_post():
 @app.route("/delete/<int:source_id>", methods=["POST"])
 def delete_source(source_id):
     try:
-        source_book_repository.delete_book(source_id)
+        SourceRepository.delete(source_id)
         return redirect("/")
     except Exception:
         flash(
@@ -64,5 +107,5 @@ def delete_source(source_id):
 
 @app.route("/reset_db", methods=["GET"])
 def reset_db():
-    source_book_repository.reset_db()
+    truncate_db()
     return redirect("/")

@@ -1,4 +1,4 @@
-from repositories.source_repository import exists_source
+from db_util import source_exists
 from util import UserInputError
 import re
 
@@ -20,7 +20,7 @@ class Source:
                 "Avain saa sisältää vain merkkejä 0-9, a-z, A-Z, -, _ ja :"
             )
 
-        if exists_source(self.bibtex_key):
+        if source_exists(self.bibtex_key):
             raise UserInputError(f"Avain {self.bibtex_key} on jo käytössä")
 
         if len(self.title) == 0:
