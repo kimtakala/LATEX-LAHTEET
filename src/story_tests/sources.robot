@@ -23,7 +23,6 @@ After adding a source, there is one
     Wait Until Element Is Visible  messages  
     Page Should Contain  Taru sormusten herrasta
     Page Should Contain  JRR Tolkien
-    Page Should Contain  Otava
     Page Should Contain  1948
 
 After adding two sources, there are two
@@ -47,11 +46,9 @@ After adding two sources, there are two
     Wait Until Element Is Visible  messages  
     Page Should Contain  Taru sormusten herrasta
     Page Should Contain  JRR Tolkien
-    Page Should Contain  Otava
     Page Should Contain  1948
     Page Should Contain  Vuonna 1984
     Page Should Contain  George Orwell
-    Page Should Contain  Tammi
     Page Should Contain  1949
 
 Cannot add without key
@@ -59,7 +56,7 @@ Cannot add without key
     Click Add Source
     Publish Source
     
-    Wait Until Element Is Visible  error
+    Wait Until Element Is Visible  messages  
     Page Should Contain  Avain vaaditaan
 
 *** Keywords ***

@@ -43,7 +43,7 @@ const updateFormFields = () => {
     ]) {
         fieldHtml = `
 <label for="add-field-${field.name}" class="${field.required ? 'required' : ''}">${field.name_friendly}</label>
-<input type="text" name="${field.name}" placeholder="${field.name_friendly}" id="add-field-${field.name}" ${field.required ? 'required' : ''} />
+<input type="text" name="${field.name}" placeholder="${field.name_friendly}" id="add-field-${field.name}" />
 `;
         allFieldsHtml += fieldHtml;
     }
