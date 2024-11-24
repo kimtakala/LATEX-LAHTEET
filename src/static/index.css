@@ -48,8 +48,10 @@
 }
 
 #add-form-fields {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(12, auto);
+    column-gap: 1em;
 }
 
 #add-source-form h2 {
