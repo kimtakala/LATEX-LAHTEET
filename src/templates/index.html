@@ -22,6 +22,7 @@ endblock %} {% block body %}
                 <form
                     action="{{ url_for('delete_source', source_id=source.source_id) }}"
                     method="POST"
+                    onsubmit="return confirmDelete();"
                 >
                     <button type="submit">Poista</button>
                 </form>
@@ -67,6 +68,10 @@ endblock %} {% block body %}
 
 <script>
     formFields = JSON.parse(`{{form_json|safe}}`);
+
+    function confirmDelete() {
+        return confirm("Poistetaanko lähde?");
+    }
 </script>
 <script src="{{ url_for('static',filename='index.js') }}"></script>
 
