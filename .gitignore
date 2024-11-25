@@ -165,3 +165,4 @@ selenium-screenshot-*.png
 output.xml
 report.html
 interactive_console_output.xml
+log.html

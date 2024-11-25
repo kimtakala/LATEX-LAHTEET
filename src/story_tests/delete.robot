@@ -10,7 +10,7 @@ At start there are no sources
     Title Should Be  BibTex -lähdehallintatyökalu
     Page Should Not Contain  Poista
 
-After adding a source, there is one
+Add a source, click delete and confirm
     Go To  ${HOME_URL}
     Click Add Source
     Input Key  tolkien
@@ -20,12 +20,11 @@ After adding a source, there is one
     Input Year  1948
     Publish Source
 
-    Wait Until Element Is Visible  messages  
-    Page Should Contain  Taru sormusten herrasta
-    Page Should Contain  JRR Tolkien
-    Page Should Contain  1948
+    Wait Until Element Is Visible  messages
+    Click Delete And Confirm
+    Page Should Not Contain  Taru sormusten herrasta
 
-After adding two sources, there are two
+Add two sources, delete and confirm both
     Go To  ${HOME_URL}
     Click Add Source
     Input Key  tolkien
@@ -35,6 +34,7 @@ After adding two sources, there are two
     Input Year  1948
     Publish Source
 
+    Wait Until Element Is Visible  messages
     Click Add Source
     Input Key  1984
     Input Title  Vuonna 1984
@@ -43,25 +43,48 @@ After adding two sources, there are two
     Input Year  1949
     Publish Source
 
-    Wait Until Element Is Visible  messages  
-    Page Should Contain  Taru sormusten herrasta
-    Page Should Contain  JRR Tolkien
-    Page Should Contain  1948
-    Page Should Contain  Vuonna 1984
-    Page Should Contain  George Orwell
-    Page Should Contain  1949
+    Wait Until Element Is Visible  messages
+    Click Delete On First And Confirm
+    Page Should Not Contain  Taru sormusten herrasta
+    Click Delete On Second And Confirm
+    Page Should Not Contain  Poista
 
-Cannot add without key
+Add a source, click delete and then cancel
     Go To  ${HOME_URL}
     Click Add Source
+    Input Key  tolkien
+    Input Title  Taru sormusten herrasta
+    Input Author  JRR Tolkien
+    Input Publisher  Otava
+    Input Year  1948
     Publish Source
-    
-    Wait Until Element Is Visible  messages  
-    Page Should Contain  Avain vaaditaan
+
+    Wait Until Element Is Visible  messages
+    Click Delete And Cancel
+    Page Should Contain  Taru sormusten herrasta
+
 
 *** Keywords ***
 Click Add Source
     Click Button  add-source-btn
+
+Click Delete And Confirm
+    Click Button  delete-source-btn
+    Handle Alert  action=ACCEPT
+
+Click Delete On First And Confirm
+    ${Title} =  Set Variable  Taru sormusten herrasta
+    Click Button  xpath=//div[contains(text(), "Taru sormusten herrasta")]/following-sibling::form/child::button
+    Handle Alert  action=ACCEPT
+
+Click Delete On Second And Confirm
+    ${Title} =  Set Variable  Vuonna 1984
+    Click Button  xpath=//div[contains(text(), "Vuonna 1984")]/following-sibling::form/child::button
+    Handle Alert  action=ACCEPT
+
+Click Delete And Cancel
+    Click Button  delete-source-btn
+    Handle Alert  action=DISMISS
 
 Publish Source
     Wait Until Element Is Visible  source-form-btn
