@@ -22,7 +22,7 @@ Tämän jälkeen aktivoi python-virtuaaliympäristö komennolla `poetry shell`. 
 
 ## Hyödyllistä tietää
 
-Mikäli tarkastelet tietokantaa `psql` -ohjelmalla, projektin käyttämää skeemaa pääsee tarkastelemaan ajamalla ensin kyselyn `SET search_path TO lahteet;`.
+Mikäli tarkastelet tietokantaa `psql` -ohjelmalla, projektin käyttämään skeemaan pääsee käsiksi ajamalla ensin kyselyn `SET search_path TO lahteet;`.
 
 ## Definition of done
 TODO
