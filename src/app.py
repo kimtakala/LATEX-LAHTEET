@@ -96,12 +96,14 @@ def index_post():
 def delete_source(source_id):
     try:
         SourceRepository.delete(source_id)
+        flash(f"Lähde poistettu onnistuneesti!", "success")
         return redirect("/")
-    except Exception:
+    except Exception as error:
         flash(
             f"Lähteen poistaminen epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
             "error",
         )
+        print(error)
         return redirect("/")
 
 
