@@ -22,6 +22,7 @@ Add a source, click delete and confirm
 
     Wait Until Element Is Visible  messages
     Click Delete And Confirm
+    Sleep    0.1s
     Page Should Not Contain  Taru sormusten herrasta
 
 Add two sources, delete and confirm both
@@ -44,9 +45,11 @@ Add two sources, delete and confirm both
     Publish Source
 
     Wait Until Element Is Visible  messages
-    Click Delete On First And Confirm
+    Click Delete And Confirm
+    Sleep    0.1s
     Page Should Not Contain  Taru sormusten herrasta
-    Click Delete On Second And Confirm
+    Click Delete And Confirm
+    Sleep    0.1s
     Page Should Not Contain  Poista
 
 Add a source, click delete and then cancel
