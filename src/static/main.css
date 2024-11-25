@@ -132,7 +132,7 @@ button:focus {
 
 #messages {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 1em;
     right: 1em;
     z-index: 100;
@@ -165,4 +165,8 @@ button:focus {
 
 .message.hide {
     display: none;
+}
+
+.text-disabled {
+    opacity: 0.7;
 }

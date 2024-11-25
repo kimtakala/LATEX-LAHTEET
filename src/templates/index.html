@@ -10,24 +10,29 @@ endblock %} {% block body %}
 </div>
 
 <div id="books">
-    <h1>Lähteet</h1>
-
     <div class="source-list">
         {% for source in sources %}
         <div class="source">
-            <div class="source-info">
-                <div class="source-title">{{ source.title }}</div>
-                <div class="source-author">{{ source.author }}</div>
-                <div class="source-year">{{ source.year }}</div>
+            <div class="info">
+                <div class="top-row">
+                    <div class="title">{{ source.title }}</div>
+                    <div class="key">{{ source.bibtex_key }}</div>
+                </div>
+                <div class="author">{{ source.author }}</div>
+                <div class="year">{{ source.year }}</div>
                 <form
                     action="{{ url_for('delete_source', source_id=source.source_id) }}"
                     method="POST"
                     onsubmit="return confirmDelete();"
                 >
-                    <button id="delete-source-btn" type="submit">Poista</button>
+                    <button type="submit" id="delete-source-btn">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </form>
             </div>
         </div>
+        {% else %}
+        <div class="text-disabled">Ei lähteitä.</div>
         {% endfor %}
     </div>
 </div>
@@ -70,7 +75,7 @@ endblock %} {% block body %}
     formFields = JSON.parse(`{{form_json|safe}}`);
 
     function confirmDelete() {
-        return confirm("Poistetaanko lähde?");
+        return confirm('Poistetaanko lähde?');
     }
 </script>
 <script src="{{ url_for('static',filename='index.js') }}"></script>
