@@ -1,4 +1,4 @@
-CREATE TYPE lahteet.SOURCE_KIND AS ENUM ('book', 'article');
+CREATE TYPE lahteet.SOURCE_KIND AS ENUM ('book', 'article', 'inproceedings');
 
 CREATE TABLE lahteet.source (
     source_id SERIAL PRIMARY KEY,
@@ -33,3 +33,19 @@ CREATE TABLE lahteet.source_article (
     pages TEXT,
     month TEXT
 );
+CREATE TABLE lahteet.source_inproceedings (
+    source_inproceedings_id SERIAL PRIMARY KEY,
+    source_id INTEGER NOT NULL REFERENCES lahteet.source ON DELETE CASCADE,
+    booktitle TEXT NOT NULL,
+    editor TEXT,
+    series TEXT,
+    pages TEXT,
+    address TEXT,
+    month TEXT,
+    organization TEXT,
+    publisher TEXT,
+    volume INTEGER
+);
+
+
+

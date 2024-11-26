@@ -27,6 +27,18 @@ fields = {
         FormField("pages", "Sivumäärä"),
         FormField("month", "Kuukausi"),
     ],
+    "inproceedings": [
+        FormField("author", "Kirjoittaja", True),
+        FormField("booktitle", "Kirjan otsikko", True),
+        FormField("editor", "Editori"),
+        FormField("series", "Sarja"),
+        FormField("pages", "Sivut"),
+        FormField("address", "Osoite"),
+        FormField("month", "Kuukausi"),
+        FormField("organization", "Organisaatio"),
+        FormField("publisher", "Julkaisija"),
+        FormField("volume", "Nide"),
+    ],
 }
 
 

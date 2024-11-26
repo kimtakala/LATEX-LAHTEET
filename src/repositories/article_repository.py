@@ -20,21 +20,21 @@ class ArticleRepository:
                 sa.volume,
                 sa.number,
                 sa.pages,
-                sa.month,
+                sa.month
 
             FROM {schema_name}.source_article sa
 
             LEFT JOIN {schema_name}.source s
-            ON s.source_id = sb.source_id
+            ON s.source_id = sa.source_id
         """
         result = db.session.execute(text(sql))
-        books = result.fetchall()
+        rows = result.fetchall()
 
         # NOTE: Varmista että SELECT queryn palattamat kentät ovat samat kuin olion konstruktorin,
         #  muutoin laita kentät manuaalisesti tyyliin SourceBook(book[0], book[1], jne...)
 
         # * -operaattori "avaa" listan, esim ["a", "b", "c"] --> "a", "b", "c"
-        return [Article(*book) for book in books]
+        return [Article(*row) for row in rows]
 
     @staticmethod
     def create(article):
