@@ -24,6 +24,10 @@ Tämän jälkeen aktivoi python-virtuaaliympäristö komennolla `poetry shell`. 
 
 Mikäli tarkastelet tietokantaa `psql` -ohjelmalla, projektin käyttämään skeemaan pääsee käsiksi ajamalla ensin kyselyn `SET search_path TO lahteet;`.
 
+## Resursseja
+
+- [Tietoa bibtex-lähdetyypeistä ja mitä kenttiä ne pitää sisällään](https://www.openoffice.org/bibliographic/bibtex-defs.html)
+
 ## Definition of done
 - User storyille tulee määritellä hyväksymiskriteerit, jotka on testattavissa Robot-frameworkilla
 - Toteutetulla koodilla on riittävä testikattavuus

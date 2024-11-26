@@ -33,6 +33,7 @@ CREATE TABLE lahteet.source_article (
     pages TEXT,
     month TEXT
 );
+
 CREATE TABLE lahteet.source_inproceedings (
     source_inproceedings_id SERIAL PRIMARY KEY,
     source_id INTEGER NOT NULL REFERENCES lahteet.source ON DELETE CASCADE,

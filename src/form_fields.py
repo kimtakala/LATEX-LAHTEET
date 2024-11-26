@@ -9,6 +9,8 @@ class FormField:
         self.input_type = input_type
 
 
+# Lomake luodaan tämän muuttujan perusteella
+# "common" -listan kentät ovat kaikissa viitetyypeissä
 fields = {
     "common": [
         FormField("bibtex_key", "Avain", True),
@@ -22,9 +24,9 @@ fields = {
     "article": [
         FormField("author", "Kirjoittaja", True),
         FormField("journal", "Julkaisu", True),
-        FormField("volume", "Nide"),
-        FormField("number", "Numero"),
-        FormField("pages", "Sivumäärä"),
+        FormField("volume", "Nide", False, "number"),
+        FormField("number", "Numero", False, "number"),
+        FormField("pages", "Sivut"),
         FormField("month", "Kuukausi"),
     ],
     "inproceedings": [
@@ -37,7 +39,7 @@ fields = {
         FormField("month", "Kuukausi"),
         FormField("organization", "Organisaatio"),
         FormField("publisher", "Julkaisija"),
-        FormField("volume", "Nide"),
+        FormField("volume", "Nide", False, "number"),
     ],
 }
 
