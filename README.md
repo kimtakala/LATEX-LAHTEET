@@ -25,4 +25,11 @@ Tämän jälkeen aktivoi python-virtuaaliympäristö komennolla `poetry shell`. 
 Mikäli tarkastelet tietokantaa `psql` -ohjelmalla, projektin käyttämään skeemaan pääsee käsiksi ajamalla ensin kyselyn `SET search_path TO lahteet;`.
 
 ## Definition of done
-TODO
+- User storyille tulee määritellä hyväksymiskriteerit, jotka on testattavissa Robot-frameworkilla
+- Toteutetulla koodilla on riittävä testikattavuus
+- Asiakas pääsee näkemään koodin ja testien tilanteen CI-palvelusta
+- Koodin dokumentaatio on riittävä ja ajantasainen
+- Koodin ylläpidettävyyden tulee olla mahdollisimman hyvä
+  - järkevä nimeäminen
+  - selkeä ja perusteltu arkkitehtuuri
+  - yhtenäinen koodityyli
