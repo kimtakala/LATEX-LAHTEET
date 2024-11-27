@@ -51,6 +51,23 @@ After adding two sources, there are two
     Page Should Contain  George Orwell
     Page Should Contain  1949
 
+Source remains after refresh
+    Go To  ${HOME_URL}
+    Click Add Source
+    Input Key  tolkien
+    Input Title  Taru sormusten herrasta
+    Input Author  JRR Tolkien
+    Input Publisher  Otava
+    Input Year  1948
+    Publish Source
+
+    Reload Page
+
+    Wait Until Element Is Visible  messages  
+    Page Should Contain  Taru sormusten herrasta
+    Page Should Contain  JRR Tolkien
+    Page Should Contain  1948
+
 Cannot add without key
     Go To  ${HOME_URL}
     Click Add Source
