@@ -39,9 +39,9 @@ class Source: # pylint: disable=too-few-public-methods
     def download(self):
         
         bibtex = ""
-        bibtex += f'@article {'{'}{self.bibtex_key},\n'
+        bibtex += f'@article {"{"}{self.bibtex_key},\n'
         bibtex += f'title = "{self.title}",\n'
         bibtex += f'year = "{self.year}",\n'
-        bibtex += f'author = "{self.author}"{'}'}\n\n'
+        bibtex += f'author = "{self.author}"{"}"}\n\n'
 
         return bibtex
