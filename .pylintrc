@@ -15,7 +15,9 @@ disable=raw-checker-failed,
         missing-module-docstring,
         missing-function-docstring,
         missing-class-docstring,
-        duplicate-code # remove this after client meeting :D
+        too-few-public-methods,
+        too-many-instance-attributes,
+        duplicate-code
 
 [FORMAT]
 

@@ -4,7 +4,7 @@ from entities.source import Source
 from util import UserInputError
 
 
-class Article(Source): # pylint: disable=too-few-public-methods
+class Article(Source):
     def __init__(self, data: dict):
         super().__init__(data)
         self.source_article_id = data["source_article_id"]

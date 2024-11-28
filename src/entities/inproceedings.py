@@ -4,7 +4,7 @@ from entities.source import Source
 from util import UserInputError
 
 
-class Inproceedings(Source): #pylint: disable=too-few-public-methods,too-many-instance-attributes
+class Inproceedings(Source):
     def __init__(self, data: dict):
         super().__init__(data)
         #self.source_inproceedings_id = data["source_inproceedings_id"]
