@@ -1,4 +1,5 @@
-from flask import flash, redirect, render_template, request
+from flask import flash, redirect, render_template, request, send_file
+from io import BytesIO
 from db_util import truncate_db
 from entities.article import Article
 from entities.book import Book
@@ -133,6 +134,23 @@ def delete_source(source_id):
         )
         print(error)
         return redirect("/")
+
+
+@app.route("/download", methods=['GET'])
+def download():
+    # TODO: add latex generator
+    latex_text = "oOo this is LaTeX"
+
+    # doing it this way instead of creating a proper file
+    # means it doesn't have to be stored anywhere
+    latex_bytes = BytesIO(latex_text.encode('utf-8'))
+
+    return send_file(
+        latex_bytes,
+        mimetype="text/bib",
+        as_attachment=True,
+        download_name="references.bib"
+    )
 
 
 @app.route("/reset_db", methods=["GET"])

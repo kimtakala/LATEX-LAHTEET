@@ -23,6 +23,14 @@ const closeAddSourceForm = () => {
 
 addSourceFormCloseButton.onclick = closeAddSourceForm;
 
+const downloadButton = document.querySelector(
+    '#download-btn'
+)
+
+downloadButton.onclick = () => {
+    location.href = "/download";
+}
+
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeAddSourceForm();
 });
