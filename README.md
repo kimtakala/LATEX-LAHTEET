@@ -31,6 +31,7 @@ Mikäli tarkastelet tietokantaa `psql` -ohjelmalla, projektin käyttämään ske
 ## Resursseja
 
 - [Tietoa bibtex-lähdetyypeistä ja mitä kenttiä ne pitää sisällään](https://www.openoffice.org/bibliographic/bibtex-defs.html)
+- [Github releasien teko](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
 
 ## Definition of done
 - User storyille tulee määritellä hyväksymiskriteerit, jotka on testattavissa Robot-frameworkilla
