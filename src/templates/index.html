@@ -5,7 +5,7 @@ endblock %} {% block body %}
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %} {% if category in
     ["error", "success"] %}
-    <div class="message {{ category }}">{{ message }}</div>
+    <div id="message" class="message {{ category }}">{{ message }}</div>
     {% endif %} {% endfor %} {% endif %} {% endwith %}
 </div>
 
@@ -15,11 +15,11 @@ endblock %} {% block body %}
         <div class="source">
             <div class="info">
                 <div class="top-row">
-                    <div class="title">{{ source.title }}</div>
-                    <div class="key">{{ source.bibtex_key }}</div>
+                    <div id="title-{{ loop.index0 }}" class="title">{{ source.title }}</div>
+                    <div id="key-{{ loop.index0 }}" class="key">{{ source.bibtex_key }}</div>
                 </div>
-                <div class="author">{{ source.author }}</div>
-                <div class="year">{{ source.year }}</div>
+                <div id="author-{{ loop.index0 }}" class="author">{{ source.author }}</div>
+                <div id="year-{{ loop.index0 }}" class="year">{{ source.year }}</div>
                 <form
                     action="{{ url_for('delete_source', source_id=source.source_id) }}"
                     method="POST"

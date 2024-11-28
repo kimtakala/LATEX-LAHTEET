@@ -30,3 +30,55 @@ Open And Configure Browser
 Reset Sources
     Go To  ${RESET_URL}
 
+*** Keywords ***
+Click Add Source
+    Click Button  add-source-btn
+
+Publish Source
+    Wait Until Element Is Visible  source-form-btn
+    Click Button  source-form-btn
+
+Select Type
+    [Arguments]  ${type}
+    Select From List By Value  id=add-field-type  ${type}
+
+Input Key
+    [Arguments]  ${key}
+    Input Text  bibtex_key  ${key}
+
+Input Title
+    [Arguments]  ${title}
+    Input Text  title  ${title}
+
+Input Author
+    [Arguments]  ${author}
+    Input Text  author  ${author}
+
+Input Year
+    [Arguments]  ${year}
+    Input Text  year  ${year}
+
+Page Should Contain Key
+    [Arguments]  ${key}  ${article-index}=0
+    Wait Until Element Is Visible  key-${article-index}
+    Element Should Contain  key-${article-index}  ${key}
+
+Page Should Contain Title
+    [Arguments]  ${title}  ${article-index}=0
+    Wait Until Element Is Visible  title-${article-index}
+    Element Should Contain  title-${article-index}  ${title}
+
+Page Should Contain Author
+    [Arguments]  ${author}  ${article-index}=0
+    Wait Until Element Is Visible  author-${article-index}
+    Element Should Contain  author-${article-index}  ${author}
+
+Page Should Contain Year
+    [Arguments]  ${year}  ${article-index}=0
+    Wait Until Element Is Visible  year-${article-index}
+    Element Should Contain  year-${article-index}  ${year}
+
+Page Should Contain Message
+    [Arguments]  ${message}
+    Wait Until Element Is Visible  message
+    Element Should Contain  message  ${message}
