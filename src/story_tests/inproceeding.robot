@@ -5,7 +5,7 @@ Suite Teardown   Close Browser
 Test Setup       Reset Sources
 
 *** Test Cases ***
-After adding an article, there is one
+After adding an inproceeding, there is one
     Go To  ${HOME_URL}
     Click Add Source
     Select Type  inproceedings
@@ -28,6 +28,43 @@ After adding an article, there is one
     Page Should Contain Title  Weak and Electromagnetic Interactions
     Page Should Contain Author  Abdus Salam
     Page Should Contain Year  1968
+
+After adding a minimal inproceeding, there is one
+    Go To  ${HOME_URL}
+    Click Add Source
+    Select Type  inproceedings
+    Input Key  salam
+    Input Title  Weak and Electromagnetic Interactions
+    Input Year  1968
+    Input Author  Abdus Salam
+    Input Book Title  Elementary particle theory
+    Publish Source
+
+    Page Should Contain Key  salam
+    Page Should Contain Title  Weak and Electromagnetic Interactions
+    Page Should Contain Author  Abdus Salam
+    Page Should Contain Year  1968
+
+Cannot add inproceeding where year is not a number
+    Go To  ${HOME_URL}
+    Click Add Source
+    Select Type  inproceedings
+    Input Key  salam
+    Input Title  Weak and Electromagnetic Interactions
+    Input Year  Year and Not a Number
+    Input Author  Abdus Salam
+    Input Book Title  Elementary particle theory
+    Input Editor  Nils Svartholm
+    Input Series  Cool Physics
+    Input Pages  367-377
+    Input Address  Aspenäsgarden, Lerum, Stockholm
+    Input Month  May
+    Input Organization  Nobel sr.
+    Input Publisher  Almquist & Wiksell
+    Input Volume  1
+    Publish Source
+
+    Page Should Contain Message  Julkaisuvuoden on oltava numero
 
 *** Keywords ***
 Input Book Title

@@ -50,6 +50,19 @@ After adding two books, there are two
     Page Should Contain Author  George Orwell  article-index=1
     Page Should Contain Year  1949  article-index=1
 
+Cannot add book where year is not a number
+    Go To  ${HOME_URL}
+    Click Add Source
+    Select Type  book
+    Input Key  tolkien
+    Input Title  Taru sormusten herrasta
+    Input Year  Year and Not a Number
+    Input Author  JRR Tolkien
+    Input Publisher  Otava
+    Publish Source
+
+    Page Should Contain Message  Julkaisuvuoden on oltava numero
+
 *** Keywords ***
 Input Publisher
     [Arguments]  ${publisher}
