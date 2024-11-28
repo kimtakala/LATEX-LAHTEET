@@ -20,6 +20,7 @@ requests = "^2.32.3"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
 coverage = "^7.6.7"
+pylint = "^3.3.1"
 
 [build-system]
 requires = ["poetry-core"]

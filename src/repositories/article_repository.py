@@ -1,13 +1,13 @@
-from config import db, schema_name
-from sqlalchemy import text
+from sqlalchemy import text #pylint disable=duplicate-code
 
+from config import db, SCHEMA_NAME
 from entities.article import Article
 from util import try_parse_int
 
 
 class ArticleRepository:
     @staticmethod
-    def get():
+    def get(): #pylint disable=duplicate-code
         sql = f"""
             SELECT
                 s.source_id,
@@ -22,9 +22,9 @@ class ArticleRepository:
                 sa.pages,
                 sa.month
 
-            FROM {schema_name}.source_article sa
+            FROM {SCHEMA_NAME}.source_article sa
 
-            LEFT JOIN {schema_name}.source s
+            LEFT JOIN {SCHEMA_NAME}.source s
             ON s.source_id = sa.source_id
         """
         result = db.session.execute(text(sql))
@@ -44,13 +44,13 @@ class ArticleRepository:
         #  käsiksi edellisen lisäyksen ID:hen
         sql = f"""
             WITH q AS (
-                INSERT INTO {schema_name}.source
+                INSERT INTO {SCHEMA_NAME}.source
                 (title, year, bibtex_key, kind, author) 
                 VALUES
                 (:title, :year, :bibtex_key, 'article', :author)
                 RETURNING source_id
             )
-            INSERT INTO {schema_name}.source_article
+            INSERT INTO {SCHEMA_NAME}.source_article
                 (source_id, journal, volume, number, pages, month)
                 VALUES
                 ((SELECT source_id FROM q), :journal, :volume, :number, :pages, :month)

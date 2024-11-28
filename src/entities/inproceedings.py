@@ -1,10 +1,11 @@
-from entities.source import Source
-from util import UserInputError
 from string import digits
 
+from entities.source import Source
+from util import UserInputError
 
-class Inproceedings(Source):
-    def __init__(
+
+class Inproceedings(Source): #pylint: disable=too-few-public-methods,too-many-instance-attributes
+    def __init__( #pylint: disable=too-many-arguments,too-many-positional-arguments,too-many-locals
         self,
         source_id,
         bibtex_key,

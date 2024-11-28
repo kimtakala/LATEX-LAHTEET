@@ -54,3 +54,5 @@ jobs:
       #    token: ${{ secrets.CODECOV_TOKEN }}
       - name: Run robot tests
         run: bash run_robot_tests.sh
+      - name: Run pylint
+        run: poetry run pylint src

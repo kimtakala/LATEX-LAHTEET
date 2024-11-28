@@ -1,7 +1,7 @@
 import json
 
 
-class FormField:
+class FormField: # pylint: disable=too-few-public-methods
     def __init__(self, name, name_friendly, required=False, input_type="text"):
         self.name = name
         self.name_friendly = name_friendly
@@ -45,5 +45,5 @@ fields = {
 
 
 def get_fields_json():
-    serializeable = {k: [f.__dict__ for f in fields[k]] for k in fields}
+    serializeable = {key: [f.__dict__ for f in value] for key, value in fields.items()}
     return json.dumps(serializeable)

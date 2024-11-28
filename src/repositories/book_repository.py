@@ -1,12 +1,12 @@
-from config import db, schema_name
 from sqlalchemy import text
 
+from config import db, SCHEMA_NAME
 from entities.book import Book
 
 
 class BookRepository:
     @staticmethod
-    def get():
+    def get(): #pylint disable=duplicate-code
         sql = f"""
             SELECT
                 s.source_id,
@@ -17,9 +17,9 @@ class BookRepository:
                 sb.source_book_id,
                 sb.publisher
 
-            FROM {schema_name}.source_book sb
+            FROM {SCHEMA_NAME}.source_book sb
 
-            LEFT JOIN {schema_name}.source s
+            LEFT JOIN {SCHEMA_NAME}.source s
             ON s.source_id = sb.source_id
         """
         result = db.session.execute(text(sql))
@@ -39,13 +39,13 @@ class BookRepository:
         #  käsiksi edellisen lisäyksen ID:hen
         sql = f"""
             WITH q AS (
-                INSERT INTO {schema_name}.source
+                INSERT INTO {SCHEMA_NAME}.source
                 (title, year, bibtex_key, kind, author) 
                 VALUES
                 (:title, :year, :bibtex_key, 'book', :author)
                 RETURNING source_id
             )
-            INSERT INTO {schema_name}.source_book
+            INSERT INTO {SCHEMA_NAME}.source_book
                 (source_id, publisher)
                 VALUES
                 ((SELECT source_id FROM q), :publisher)

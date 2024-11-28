@@ -1,13 +1,15 @@
-from config import db, app, schema_name
-from sqlalchemy import text
 from pathlib import Path
+
+from sqlalchemy import text
+
+from config import db, app, SCHEMA_NAME
 
 
 def setup_db():
     # Tyhjennä skeema
     sql = f"""
-        DROP SCHEMA IF EXISTS {schema_name} CASCADE;
-        CREATE SCHEMA {schema_name};
+        DROP SCHEMA IF EXISTS {SCHEMA_NAME} CASCADE;
+        CREATE SCHEMA {SCHEMA_NAME};
     """
     db.session.execute(text(sql))
 

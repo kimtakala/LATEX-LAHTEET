@@ -1,6 +1,6 @@
-from config import db, schema_name
 from sqlalchemy import text
 
+from config import db, SCHEMA_NAME
 from entities.source import Source
 
 
@@ -16,7 +16,7 @@ class SourceRepository:
                 year,
                 author
 
-            FROM {schema_name}.source
+            FROM {SCHEMA_NAME}.source
         """
         result = db.session.execute(text(sql))
         books = result.fetchall()
@@ -31,7 +31,7 @@ class SourceRepository:
     def delete(source_id):
         sql = f"""
             DELETE FROM
-            {schema_name}.source
+            {SCHEMA_NAME}.source
             WHERE source_id = :source_id
         """
         db.session.execute(text(sql), {"source_id": source_id})
@@ -46,12 +46,15 @@ class SourceRepository:
                 year,
                 author
             
-            FROM {schema_name}.source
+            FROM {SCHEMA_NAME}.source
             """
         result = db.session.execute(text(sql))
         books = result.fetchall()
-        BibTeX = f""
+        bibtex = ""
         for book in books:
-            BibTeX += f'@article{'{'} {book[0]},\ntitle = "{book[1]}",\nyear = "{book[2]}",\nauthor = "{book[3]}"{'}'}\n\n'
+            bibtex += f'@article {{{book[0]}}},\n'
+            bibtex += f'title = "{book[1]}",\n'
+            bibtex += f'year = "{book[2]}",\n'
+            bibtex += f'author = "{book[3]}"\n\n'
 
-        return BibTeX
+        return bibtex

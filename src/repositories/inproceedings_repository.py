@@ -1,13 +1,13 @@
-from config import db, schema_name
 from sqlalchemy import text
 
+from config import db, SCHEMA_NAME
 from entities.inproceedings import Inproceedings
 from util import try_parse_int
 
 
 class InproceedingsRepository:
     @staticmethod
-    def get():
+    def get(): #pylint disable=duplicate-code
         sql = f"""
             SELECT
                 s.source_id,
@@ -26,9 +26,9 @@ class InproceedingsRepository:
                 si.publisher,
                 si.volume
 
-            FROM {schema_name}.source_inproceedings si
+            FROM {SCHEMA_NAME}.source_inproceedings si
 
-            LEFT JOIN {schema_name}.source s
+            LEFT JOIN {SCHEMA_NAME}.source s
             ON s.source_id = si.source_id
         """
         result = db.session.execute(text(sql))
@@ -48,13 +48,13 @@ class InproceedingsRepository:
         #  käsiksi edellisen lisäyksen ID:hen
         sql = f"""
             WITH q AS (
-                INSERT INTO {schema_name}.source
+                INSERT INTO {SCHEMA_NAME}.source
                 (title, year, bibtex_key, kind, author) 
                 VALUES
                 (:title, :year, :bibtex_key, 'inproceedings', :author)
                 RETURNING source_id
             )
-            INSERT INTO {schema_name}.source_inproceedings
+            INSERT INTO {SCHEMA_NAME}.source_inproceedings
                 (source_id, booktitle, editor, series, pages, address, month, organization, publisher, volume)
                 VALUES
                 ((SELECT source_id FROM q), :booktitle, :editor, :series, :pages, :address, :month, :organization, :publisher, :volume)

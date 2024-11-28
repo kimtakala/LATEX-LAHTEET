@@ -1,10 +1,11 @@
-from db_util import source_exists
-from util import UserInputError
 import re
 
+from db_util import source_exists
+from util import UserInputError
 
-class Source:
-    def __init__(self, source_id, bibtex_key, title, year, author):
+
+class Source: # pylint: disable=too-few-public-methods
+    def __init__(self, source_id, bibtex_key, title, year, author): #pylint: disable=too-many-arguments,too-many-positional-arguments
         self.source_id = source_id
         self.bibtex_key = bibtex_key
         self.title = title

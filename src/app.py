@@ -1,5 +1,7 @@
-from flask import flash, redirect, render_template, request, send_file
 from io import BytesIO
+
+from flask import flash, redirect, render_template, request, send_file
+
 from db_util import truncate_db
 from entities.article import Article
 from entities.book import Book
@@ -25,9 +27,10 @@ def index_get():
             form_json=form_json,
             show_add_form=show_add_form,
         )
-    except Exception as error:
+    except Exception as error: # pylint: disable=broad-exception-caught
         flash(
-            f"Lähteiden haku epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
+            "Lähteiden haku epäonnistui teknisen virheen takia, \
+            ota yhteyttä järjestelmänvalvojaan.",
             "error",
         )
         print(error)
@@ -102,7 +105,7 @@ def index_post():
                 added_key = inproceedings.bibtex_key
 
             case _:
-                flash(f"Lähteen tyyppiä ei tueta", "error")
+                flash("Lähteen tyyppiä ei tueta", "error")
                 return redirect("/?show_add_form")
 
         flash(f"Lähde {added_key} lisätty onnistuneesti!", "success")
@@ -112,9 +115,10 @@ def index_post():
         flash(str(error), "error")
         return redirect("/?show_add_form")
 
-    except Exception as error:
+    except Exception as error: # pylint: disable=broad-exception-caught
         flash(
-            f"Lähteen lisääminen epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
+            "Lähteen lisääminen epäonnistui teknisen virheen takia, \
+            ota yhteyttä järjestelmänvalvojaan.",
             "error",
         )
         print(error)
@@ -125,11 +129,12 @@ def index_post():
 def delete_source(source_id):
     try:
         SourceRepository.delete(source_id)
-        flash(f"Lähde poistettu onnistuneesti!", "success")
+        flash("Lähde poistettu onnistuneesti!", "success")
         return redirect("/")
-    except Exception as error:
+    except Exception as error: # pylint: disable=broad-exception-caught
         flash(
-            f"Lähteen poistaminen epäonnistui teknisen virheen takia, ota yhteyttä järjestelmänvalvojaan.",
+            "Lähteen poistaminen epäonnistui teknisen virheen takia, \
+            ota yhteyttä järjestelmänvalvojaan.",
             "error",
         )
         print(error)
@@ -138,7 +143,6 @@ def delete_source(source_id):
 
 @app.route("/download", methods=['GET'])
 def download():
-    # TODO: add latex generator
     latex_text = SourceRepository.download()
 
     # doing it this way instead of creating a proper file
