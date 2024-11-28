@@ -2,7 +2,7 @@
 [![GHA workflow badge](https://github.com/Metanjarki/LATEX-LAHTEET/workflows/CI/badge.svg)](https://github.com/Metanjarki/LATEX-LAHTEET/actions)
 [![codecov](https://codecov.io/gh/Metanjarki/LATEX-LAHTEET/graph/badge.svg?token=LWVYAAM3LO)](https://codecov.io/gh/Metanjarki/LATEX-LAHTEET)
 
-Sovelluksen tarkoitus on helpottaa kirjaviitausten keräämistä ja niiden käsittelyä
+Sovelluksen tarkoitus on helpottaa BibTex-lähdeviittausten hallintaa.
 
 ## Ominaisuuksia
 
