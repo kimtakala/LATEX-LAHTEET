@@ -38,7 +38,7 @@ class SourceRepository:
         db.session.commit()
 
     @staticmethod
-    def download(source_id):
+    def download():
         sql = f"""
             SELECT
                 bibtex_key,
@@ -47,11 +47,11 @@ class SourceRepository:
                 author
             
             FROM {schema_name}.source
-            WHERE source_id = :source_id
             """
-        result = db.session.execute(text(sql), {"source_id": source_id})
-        book = result.fetchone()
-
-        BibTeX = f'@article {{{book[0]}}},\ntitle = "{book[1]}",\nyear = "{book[2]}",\nauthor = "{book[3]}"'
+        result = db.session.execute(text(sql))
+        books = result.fetchall()
+        BibTeX = f""
+        for book in books:
+            BibTeX += f'@article {{{book[0]}}},\ntitle = "{book[1]}",\nyear = "{book[2]}",\nauthor = "{book[3]}"\n\n'
 
         return BibTeX

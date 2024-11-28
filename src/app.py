@@ -139,7 +139,7 @@ def delete_source(source_id):
 @app.route("/download", methods=['GET'])
 def download():
     # TODO: add latex generator
-    latex_text = "oOo this is LaTeX"
+    latex_text = SourceRepository.download()
 
     # doing it this way instead of creating a proper file
     # means it doesn't have to be stored anywhere
