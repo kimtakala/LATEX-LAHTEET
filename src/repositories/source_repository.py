@@ -52,6 +52,6 @@ class SourceRepository:
         result = db.session.execute(text(sql), {"source_id": source_id})
         book = result.fetchone()
 
-        BibTeX = f"""@article {{{book[0]}}},\ntitle = "{book[1]}",\nyear = "{book[2]}",\nauthor = "{book[3]}"
-"""
+        BibTeX = f'@article {{{book[0]}}},\ntitle = "{book[1]}",\nyear = "{book[2]}",\nauthor = "{book[3]}"'
+
         return BibTeX
