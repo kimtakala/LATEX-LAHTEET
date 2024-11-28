@@ -52,6 +52,6 @@ class SourceRepository:
         books = result.fetchall()
         BibTeX = f""
         for book in books:
-            BibTeX += f'@article {{{book[0]}}},\ntitle = "{book[1]}",\nyear = "{book[2]}",\nauthor = "{book[3]}"\n\n'
+            BibTeX += f'@article{'{'} {book[0]},\ntitle = "{book[1]}",\nyear = "{book[2]}",\nauthor = "{book[3]}"{'}'}\n\n'
 
         return BibTeX
