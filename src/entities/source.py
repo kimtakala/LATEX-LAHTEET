@@ -35,3 +35,13 @@ class Source: # pylint: disable=too-few-public-methods
 
         if not re.compile("^[0-9]+$").match(self.year):
             raise UserInputError("Julkaisuvuoden on oltava numero")
+
+    def download(self):
+        
+        bibtex = ""
+        bibtex += f'@article {'{'}{self.bibtex_key},\n'
+        bibtex += f'title = "{self.title}",\n'
+        bibtex += f'year = "{self.year}",\n'
+        bibtex += f'author = "{self.author}"{'}'}\n\n'
+
+        return bibtex
