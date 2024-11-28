@@ -19,6 +19,7 @@ from util import UserInputError
 def index_get():
     show_add_form = "show_add_form" in request.args
     form_json = get_fields_json()
+
     try:
         sources = SourceRepository.get()
         return render_template(

@@ -34,3 +34,25 @@ class SourceRepository:
         """
         db.session.execute(text(sql), {"source_id": source_id})
         db.session.commit()
+
+    @staticmethod
+    def download():
+        sql = f"""
+            SELECT
+                bibtex_key,
+                title,
+                year,
+                author
+            
+            FROM {SCHEMA_NAME}.source
+            """
+        result = db.session.execute(text(sql))
+        books = result.fetchall()
+        bibtex = ""
+        for book in books:
+            bibtex += f"@article {{{book[0]}}},\n"
+            bibtex += f'title = "{book[1]}",\n'
+            bibtex += f'year = "{book[2]}",\n'
+            bibtex += f'author = "{book[3]}"\n\n'
+
+        return bibtex
