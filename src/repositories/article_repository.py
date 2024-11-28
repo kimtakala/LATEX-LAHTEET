@@ -1,4 +1,4 @@
-from sqlalchemy import text #pylint disable=duplicate-code
+from sqlalchemy import text
 
 from config import db, SCHEMA_NAME
 from entities.article import Article
@@ -7,7 +7,7 @@ from util import try_parse_int
 
 class ArticleRepository:
     @staticmethod
-    def get(): #pylint disable=duplicate-code
+    def get():
         sql = f"""
             SELECT
                 s.source_id,
@@ -28,13 +28,11 @@ class ArticleRepository:
             ON s.source_id = sa.source_id
         """
         result = db.session.execute(text(sql))
-        rows = result.fetchall()
+        rows = result.mappings()
 
         # NOTE: Varmista että SELECT queryn palattamat kentät ovat samat kuin olion konstruktorin,
         #  muutoin laita kentät manuaalisesti tyyliin SourceBook(book[0], book[1], jne...)
-
-        # * -operaattori "avaa" listan, esim ["a", "b", "c"] --> "a", "b", "c"
-        return [Article(*row) for row in rows]
+        return [Article(row) for row in rows]
 
     @staticmethod
     def create(article):

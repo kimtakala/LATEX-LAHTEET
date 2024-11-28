@@ -5,27 +5,14 @@ from util import UserInputError
 
 
 class Article(Source): # pylint: disable=too-few-public-methods
-    def __init__( #pylint: disable=too-many-arguments,too-many-positional-arguments
-        self,
-        source_id,
-        bibtex_key,
-        title,
-        year,
-        author,
-        source_article_id,
-        journal,
-        volume,
-        number,
-        pages,
-        month,
-    ):
-        super().__init__(source_id, bibtex_key, title, year, author)
-        self.source_article_id = source_article_id
-        self.journal = journal
-        self.volume = volume
-        self.number = number
-        self.pages = pages
-        self.month = month
+    def __init__(self, data: dict):
+        super().__init__(data)
+        self.source_article_id = data["source_article_id"]
+        self.journal = data["journal"]
+        self.volume = data["volume"]
+        self.number = data["number"]
+        self.pages = data["pages"]
+        self.month = data["month"]
 
     def validate(self):
         super().validate()

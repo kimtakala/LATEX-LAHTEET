@@ -7,7 +7,7 @@ from util import try_parse_int
 
 class InproceedingsRepository:
     @staticmethod
-    def get(): #pylint disable=duplicate-code
+    def get():
         sql = f"""
             SELECT
                 s.source_id,
@@ -32,17 +32,17 @@ class InproceedingsRepository:
             ON s.source_id = si.source_id
         """
         result = db.session.execute(text(sql))
-        rows = result.fetchall()
+        rows = result.mappings()
 
         # NOTE: Varmista että SELECT queryn palattamat kentät ovat samat kuin olion konstruktorin,
         #  muutoin laita kentät manuaalisesti tyyliin SourceBook(book[0], book[1], jne...)
-
-        # * -operaattori "avaa" listan, esim ["a", "b", "c"] --> "a", "b", "c"
-        return [Inproceedings(*row) for row in rows]
+        return [Inproceedings(row) for row in rows]
 
     @staticmethod
     def create(inproceedings):
+        print("Creating Inproceeding")
         inproceedings.validate()
+        print("Validated Inproceeding")
 
         # Tapa lisätä useihin tauluihin siten, että pääsemme kätevästi
         #  käsiksi edellisen lisäyksen ID:hen

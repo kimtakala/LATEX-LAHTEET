@@ -40,67 +40,67 @@ def index_get():
 @app.route("/", methods=["POST"])
 def index_post():
     form = request.form
-    print(form.__dict__)
     source_type = form["type"]
     added_key = ""
 
     try:
         match source_type:
             case "book":
-                book = Book(
-                    0,
-                    form["bibtex_key"] if "bibtex_key" in form else "",
-                    form["title"] if "title" in form else "",
-                    form["year"] if "year" in form else "",
-                    form["author"] if "author" in form else "",
-                    0,
-                    form["publisher"] if "publisher" in form else "",
-                )
+                book = Book({
+                    "source_id": 0,
+                    "bibtex_key": form["bibtex_key"] if "bibtex_key" in form else "",
+                    "title": form["title"] if "title" in form else "",
+                    "year": form["year"] if "year" in form else "",
+                    "author": form["author"] if "author" in form else "",
+                    "source_book_id": 0,
+                    "publisher": form["publisher"] if "publisher" in form else "",
+                })
 
                 BookRepository.create(book)
                 added_key = book.bibtex_key
 
             case "article":
-                article = Article(
-                    0,
-                    form["bibtex_key"] if "bibtex_key" in form else "",
-                    form["title"] if "title" in form else "",
-                    form["year"] if "year" in form else "",
-                    form["author"] if "author" in form else "",
-                    0,
-                    form["journal"] if "journal" in form else "",
-                    form["volume"] if "volume" in form else "",
-                    form["number"] if "number" in form else "",
-                    form["pages"] if "pages" in form else "",
-                    form["month"] if "month" in form else "",
-                )
+                article = Article({
+                    "source_id": 0,
+                    "bibtex_key": form["bibtex_key"] if "bibtex_key" in form else "",
+                    "title": form["title"] if "title" in form else "",
+                    "year": form["year"] if "year" in form else "",
+                    "author": form["author"] if "author" in form else "",
+                    "source_article_id": 0,
+                    "journal": form["journal"] if "journal" in form else "",
+                    "volume": form["volume"] if "volume" in form else "",
+                    "number": form["number"] if "number" in form else "",
+                    "pages": form["pages"] if "pages" in form else "",
+                    "month": form["month"] if "month" in form else "",
+                })
 
                 ArticleRepository.create(article)
                 added_key = article.bibtex_key
 
             case "inproceedings":
-                inproceedings = Inproceedings(
-                    form["source_id"] if "source_id" in form else "",
-                    form["bibtex_key"] if "bibtex_key" in form else "",
-                    form["title"] if "title" in form else "",
-                    form["year"] if "year" in form else "",
-                    form["author"] if "author" in form else "",
-                    (
+                print("Creating Inproceedings-object")
+                inproceedings = Inproceedings({
+                    "source_id": 0,
+                    "bibtex_key": form["bibtex_key"] if "bibtex_key" in form else "",
+                    "title": form["title"] if "title" in form else "",
+                    "year": form["year"] if "year" in form else "",
+                    "author": form["author"] if "author" in form else "",
+                    "source_inproceeding_id":
                         form["source_inproceedings_id"]
                         if "source_inproceedings_id" in form
                         else ""
-                    ),
-                    form["booktitle"] if "booktitle" in form else "",
-                    form["editor"] if "editor" in form else "",
-                    form["series"] if "series" in form else "",
-                    form["pages"] if "pages" in form else "",
-                    form["address"] if "address" in form else "",
-                    form["month"] if "month" in form else "",
-                    form["organization"] if "organization" in form else "",
-                    form["publisher"] if "publisher" in form else "",
-                    form["volume"] if "volume" in form else "",
-                )
-
+                    ,
+                    "booktitle": form["booktitle"] if "booktitle" in form else "",
+                    "editor": form["editor"] if "editor" in form else "",
+                    "series": form["series"] if "series" in form else "",
+                    "pages": form["pages"] if "pages" in form else "",
+                    "address": form["address"] if "address" in form else "",
+                    "month": form["month"] if "month" in form else "",
+                    "organization": form["organization"] if "organization" in form else "",
+                    "publisher": form["publisher"] if "publisher" in form else "",
+                    "volume": form["volume"] if "volume" in form else "",
+                })
+                print("Adding inproceeding object")
                 InproceedingsRepository.create(inproceedings)
                 added_key = inproceedings.bibtex_key
 

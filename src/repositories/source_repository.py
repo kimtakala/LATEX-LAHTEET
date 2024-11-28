@@ -19,13 +19,11 @@ class SourceRepository:
             FROM {SCHEMA_NAME}.source
         """
         result = db.session.execute(text(sql))
-        books = result.fetchall()
+        books = result.mappings()
 
         # NOTE: Varmista että SELECT queryn palattamat kentät ovat samat kuin olion konstruktorin,
         #  muutoin laita kentät manuaalisesti tyyliin SourceBook(book[0], book[1], jne...)
-
-        # * -operaattori "avaa" listan, esim ["a", "b", "c"] --> "a", "b", "c"
-        return [Source(*book) for book in books]
+        return [Source(book) for book in books]
 
     @staticmethod
     def delete(source_id):

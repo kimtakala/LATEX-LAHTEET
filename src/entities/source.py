@@ -5,12 +5,12 @@ from util import UserInputError
 
 
 class Source: # pylint: disable=too-few-public-methods
-    def __init__(self, source_id, bibtex_key, title, year, author): #pylint: disable=too-many-arguments,too-many-positional-arguments
-        self.source_id = source_id
-        self.bibtex_key = bibtex_key
-        self.title = title
-        self.year = year
-        self.author = author
+    def __init__(self, data: dict):
+        self.source_id = data["source_id"]
+        self.bibtex_key = data["bibtex_key"]
+        self.title = data["title"]
+        self.year = data["year"]
+        self.author = data["author"]
 
     def validate(self):
         if len(self.bibtex_key) == 0:

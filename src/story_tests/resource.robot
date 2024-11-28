@@ -32,6 +32,7 @@ Reset Sources
 
 *** Keywords ***
 Click Add Source
+    Wait Until Element Is Visible  add-source-btn
     Click Button  add-source-btn
 
 Publish Source

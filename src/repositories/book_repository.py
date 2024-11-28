@@ -6,7 +6,7 @@ from entities.book import Book
 
 class BookRepository:
     @staticmethod
-    def get(): #pylint disable=duplicate-code
+    def get():
         sql = f"""
             SELECT
                 s.source_id,
@@ -23,13 +23,11 @@ class BookRepository:
             ON s.source_id = sb.source_id
         """
         result = db.session.execute(text(sql))
-        books = result.fetchall()
+        books = result.mappings()
 
         # NOTE: Varmista että SELECT queryn palattamat kentät ovat samat kuin olion konstruktorin,
         #  muutoin laita kentät manuaalisesti tyyliin SourceBook(book[0], book[1], jne...)
-
-        # * -operaattori "avaa" listan, esim ["a", "b", "c"] --> "a", "b", "c"
-        return [Book(*book) for book in books]
+        return [Book(book) for book in books]
 
     @staticmethod
     def create(book):
