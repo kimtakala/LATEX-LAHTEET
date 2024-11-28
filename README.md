@@ -4,6 +4,10 @@
 
 Sovelluksen tarkoitus on helpottaa kirjaviitausten keräämistä ja niiden käsittelyä
 
+## Ominaisuuksia
+
+Sovellukseen voi lisätä lähteitä muodoissa kirja, artikkeli ja artikkeli konferenssijulkaisussa. Sovelluksesta voi myös ladata lähteet typistettynä.
+
 ## Backlog
 Nykyisen backlogin voi nähdä [täältä](https://docs.google.com/spreadsheets/d/1M5kKUjORXVepBhWVwGJPqX7DncR86aFn1dlTe7wg358/edit?usp=sharing)
 
