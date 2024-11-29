@@ -21,9 +21,6 @@ class Source:
                 "Avain saa sisältää vain merkkejä 0-9, a-z, A-Z, -, _ ja :"
             )
 
-        if source_exists(self.bibtex_key):
-            raise UserInputError(f"Avain {self.bibtex_key} on jo käytössä")
-
         if len(self.title) == 0:
             raise UserInputError("Otsikko vaaditaan")
 
@@ -35,6 +32,11 @@ class Source:
 
         if not re.compile("^[0-9]+$").match(self.year):
             raise UserInputError("Julkaisuvuoden on oltava numero")
+        
+# siirrtetty samankaltaisten avainten tarkistuksen viimeiseksi että testit toimii :D
+        if source_exists(self.bibtex_key):
+            raise UserInputError(f"Avain {self.bibtex_key} on jo käytössä")
+
 
     def download(self):
 
