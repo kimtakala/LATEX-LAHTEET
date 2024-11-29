@@ -3,7 +3,6 @@ import re
 from db_util import source_exists
 from util import UserInputError
 
-
 class Source:
     def __init__(self, data: dict):
         self.source_id = data["source_id"]
@@ -32,7 +31,7 @@ class Source:
 
         if not re.compile("^[0-9]+$").match(self.year):
             raise UserInputError("Julkaisuvuoden on oltava numero")
-        
+#
 # siirrtetty samankaltaisten avainten tarkistuksen viimeiseksi että testit toimii :D
         if source_exists(self.bibtex_key):
             raise UserInputError(f"Avain {self.bibtex_key} on jo käytössä")
