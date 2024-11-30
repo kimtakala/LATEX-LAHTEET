@@ -1,5 +1,4 @@
 from typing import Optional
-from sqlalchemy import text
 
 from util import first_item
 from config import SCHEMA_NAME
@@ -40,7 +39,8 @@ class SourceRepository:
         self.database_service.execute(sql, {"source_id": source_id})
 
     def get_full(self):
-        # Hakee lähteet ns. itsenään, eli esim. kirjalähteistä haetaan Book objektit kaiken datan kera jne.
+        # Hakee lähteet ns. itsenään, eli esim. kirjalähteistä
+        #  haetaan Book objektit kaiken datan kera jne.
 
         sql = f"SELECT source_id, kind FROM {SCHEMA_NAME}.source"
         rows = self.database_service.fetch(sql)

@@ -1,5 +1,4 @@
 from typing import Optional
-from sqlalchemy import text
 
 from config import SCHEMA_NAME
 from entities.book import Book

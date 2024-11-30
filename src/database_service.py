@@ -1,4 +1,4 @@
-from typing import Optional, overload
+from typing import Optional
 from sqlalchemy import text
 from config import db
 

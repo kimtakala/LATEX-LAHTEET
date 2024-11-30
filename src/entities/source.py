@@ -45,14 +45,14 @@ class Source:
         fields = self.__dict__
         fields_bibtex = ""
 
-        for field in fields:
+        for field, value in fields.items():
             if field in self.stringify_ignore_fields:
                 continue
 
             if field.endswith("_id"):
                 continue
 
-            value = "{" + str(fields[field]) + "}"
+            value = "{" + str(value) + "}"
             fields_bibtex += f"    {field} = {value},\n"
 
         return f"@{self.kind}" + "{" + f"{self.bibtex_key},\n{fields_bibtex}" + "}"

@@ -10,7 +10,6 @@ from entities.book import Book
 from entities.inproceedings import Inproceedings
 from form_fields import get_fields_json
 from config import app
-from repositories import book_repository
 from repositories.article_repository import ArticleRepository
 from repositories.book_repository import BookRepository
 from repositories.inproceedings_repository import InproceedingsRepository
