@@ -1,13 +1,17 @@
+from typing import Optional
 from sqlalchemy import text
 
-from config import db, SCHEMA_NAME
+from config import SCHEMA_NAME
 from entities.article import Article
 from util import try_parse_int
 
 
 class ArticleRepository:
-    @staticmethod
-    def get():
+
+    def __init__(self, database_service) -> None:
+        self.database_service = database_service
+
+    def get(self, source_id: Optional[int] = None) -> list[Article]:
         sql = f"""
             SELECT
                 s.source_id,
@@ -26,16 +30,16 @@ class ArticleRepository:
 
             LEFT JOIN {SCHEMA_NAME}.source s
             ON s.source_id = sa.source_id
+
+            {f"WHERE s.source_id = '{source_id}'" if source_id else ""}
         """
-        result = db.session.execute(text(sql))
-        rows = result.mappings()
+        rows = self.database_service.fetch(sql)
 
         # NOTE: Varmista että SELECT queryn palattamat kentät ovat samat kuin olion konstruktorin,
         #  muutoin laita kentät manuaalisesti tyyliin SourceBook(book[0], book[1], jne...)
         return [Article(row) for row in rows]
 
-    @staticmethod
-    def create(article):
+    def create(self, article):
         article.validate()
 
         # Tapa lisätä useihin tauluihin siten, että pääsemme kätevästi
@@ -55,8 +59,8 @@ class ArticleRepository:
 
         """
 
-        db.session.execute(
-            text(sql),
+        self.database_service.execute(
+            sql,
             {
                 "bibtex_key": article.bibtex_key,
                 "title": article.title,
@@ -69,4 +73,3 @@ class ArticleRepository:
                 "month": article.month,
             },
         )
-        db.session.commit()

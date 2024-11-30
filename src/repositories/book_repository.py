@@ -1,12 +1,16 @@
+from typing import Optional
 from sqlalchemy import text
 
-from config import db, SCHEMA_NAME
+from config import SCHEMA_NAME
 from entities.book import Book
 
 
 class BookRepository:
-    @staticmethod
-    def get():
+
+    def __init__(self, database_service) -> None:
+        self.database_service = database_service
+
+    def get(self, source_id: Optional[int] = None) -> list[Book]:
         sql = f"""
             SELECT
                 s.source_id,
@@ -21,16 +25,14 @@ class BookRepository:
 
             LEFT JOIN {SCHEMA_NAME}.source s
             ON s.source_id = sb.source_id
+
+            {f"WHERE s.source_id = '{source_id}'" if source_id else ""}
         """
-        result = db.session.execute(text(sql))
-        books = result.mappings()
+        rows = self.database_service.fetch(sql)
 
-        # NOTE: Varmista että SELECT queryn palattamat kentät ovat samat kuin olion konstruktorin,
-        #  muutoin laita kentät manuaalisesti tyyliin SourceBook(book[0], book[1], jne...)
-        return [Book(book) for book in books]
+        return [Book(row) for row in rows]
 
-    @staticmethod
-    def create(book):
+    def create(self, book):
         book.validate()
 
         # Tapa lisätä useihin tauluihin siten, että pääsemme kätevästi
@@ -49,8 +51,8 @@ class BookRepository:
                 ((SELECT source_id FROM q), :publisher)
 
         """
-        db.session.execute(
-            text(sql),
+        self.database_service.execute(
+            sql,
             {
                 "bibtex_key": book.bibtex_key,
                 "title": book.title,
@@ -59,4 +61,3 @@ class BookRepository:
                 "author": book.author,
             },
         )
-        db.session.commit()

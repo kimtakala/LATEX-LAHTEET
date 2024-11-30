@@ -7,7 +7,7 @@ from util import UserInputError
 class Inproceedings(Source):
     def __init__(self, data: dict):
         super().__init__(data)
-        #self.source_inproceedings_id = data["source_inproceedings_id"]
+        # self.source_inproceedings_id = data["source_inproceedings_id"]
         self.booktitle = data["booktitle"]
         self.editor = data["editor"]
         self.series = data["series"]
@@ -17,6 +17,7 @@ class Inproceedings(Source):
         self.organization = data["organization"]
         self.publisher = data["publisher"]
         self.volume = data["volume"]
+        self.kind = "inproceedings"
 
     def validate(self):
         super().validate()

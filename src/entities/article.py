@@ -13,6 +13,7 @@ class Article(Source):
         self.number = data["number"]
         self.pages = data["pages"]
         self.month = data["month"]
+        self.kind = "article"
 
     def validate(self):
         super().validate()

@@ -7,6 +7,7 @@ class Book(Source):
         super().__init__(data)
         self.source_book_id = data["source_book_id"]
         self.publisher = data["publisher"]
+        self.kind = "book"
 
     def validate(self):
         super().validate()

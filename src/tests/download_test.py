@@ -1,62 +1,90 @@
 import unittest
-from entities.source import Source
+from bibtex_convert import to_bibtex
+from entities.inproceedings import Inproceedings
+from entities.article import Article
+from entities.book import Book
 
 
 class TestDownload(unittest.TestCase):
+    def test_lataa_useampi_lähde(self):
+        sources = [
+            Book(
+                {
+                    "source_id": 0,
+                    "bibtex_key": "avain",
+                    "title": "otsikko",
+                    "year": "1234",
+                    "author": "tatu",
+                    "source_book_id": 0,
+                    "publisher": "tatu oy",
+                }
+            ),
+            Article(
+                {
+                    "source_id": 0,
+                    "bibtex_key": "avain",
+                    "title": "otsikko",
+                    "year": "1234",
+                    "author": "tatu",
+                    "source_article_id": 0,
+                    "journal": "tatu publishing",
+                    "volume": "2",
+                    "number": "3",
+                    "pages": "12-13",
+                    "month": "Jan",
+                }
+            ),
+            Inproceedings(
+                {
+                    "source_id": 0,
+                    "bibtex_key": "avain",
+                    "title": "otsikko",
+                    "year": "1234",
+                    "author": "tatu",
+                    "source_inproceeding_id": "",
+                    "booktitle": "tatun kirja",
+                    "editor": "tatu",
+                    "series": "sarja",
+                    "pages": "12-13",
+                    "address": "Osoitekatu 12",
+                    "month": "Dec",
+                    "organization": "tatu oy",
+                    "publisher": "tatu publishing",
+                    "volume": "3",
+                }
+            ),
+        ]
 
-    def test_lataa_yksi_lähde(self):
+        expected_bibtex = """@book{avain,
+    title = {otsikko},
+    year = {1234},
+    author = {tatu},
+    publisher = {tatu oy},
+}
 
-        sources = (
-            {
-                "source_id": 1,
-                "bibtex_key": "bibtex_key_1",
-                "title": "bibtex_title_1",
-                "year": "2020",
-                "author": "bibtex_author_1",
-            },
-            {
-                "source_id": 2,
-                "bibtex_key": "bibtex_key_2",
-                "title": "bibtex_title_2",
-                "year": "2021",
-                "author": "bibtex_author_2",
-            },
-        )
+@article{avain,
+    title = {otsikko},
+    year = {1234},
+    author = {tatu},
+    journal = {tatu publishing},
+    volume = {2},
+    number = {3},
+    pages = {12-13},
+    month = {Jan},
+}
 
-        books = []
-        for item in sources:
-            books.append(Source(item))
-
-        bibtex = books[0].download()
-        test = '@article {bibtex_key_1,\ntitle = "bibtex_title_1",\nyear = "2020",\nauthor = "bibtex_author_1"}\n\n'
-        assert bibtex == test
-
-    def test_lataa_kaksi_lähdettä(self):
-
-        sources = (
-            {
-                "source_id": 1,
-                "bibtex_key": "bibtex_key_1",
-                "title": "bibtex_title_1",
-                "year": "2020",
-                "author": "bibtex_author_1",
-            },
-            {
-                "source_id": 2,
-                "bibtex_key": "bibtex_key_2",
-                "title": "bibtex_title_2",
-                "year": "2021",
-                "author": "bibtex_author_2",
-            },
-        )
-
-        books = []
-        for item in sources:
-            books.append(Source(item))
-        bibtex = ""
-        for i in books:
-            bibtex += i.download()
-
-        test = '@article {bibtex_key_1,\ntitle = "bibtex_title_1",\nyear = "2020",\nauthor = "bibtex_author_1"}\n\n@article {bibtex_key_2,\ntitle = "bibtex_title_2",\nyear = "2021",\nauthor = "bibtex_author_2"}\n\n'
-        assert bibtex == test
-
+@inproceedings{avain,
+    title = {otsikko},
+    year = {1234},
+    author = {tatu},
+    booktitle = {tatun kirja},
+    editor = {tatu},
+    series = {sarja},
+    pages = {12-13},
+    address = {Osoitekatu 12},
+    month = {Dec},
+    organization = {tatu oy},
+    publisher = {tatu publishing},
+    volume = {3},
+}"""
+        assert to_bibtex(sources) == expected_bibtex
