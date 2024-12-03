@@ -61,6 +61,9 @@ class Source:
             if field.endswith("_id"):
                 continue
 
+            if len(str(value)) == 0:
+                continue
+
             value = "{" + str(value) + "}"
             fields_bibtex += f"    {field} = {value},\n"
 
