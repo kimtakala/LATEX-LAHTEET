@@ -1,6 +1,6 @@
 import re
 
-from db_util import source_exists
+from db_util import source_exists_by_key
 from util import UserInputError
 
 
@@ -11,8 +11,18 @@ class Source:
         self.title = data["title"]
         self.year = data["year"]
         self.author = data["author"]
+
+        self.tags = []
+        if "tags" in data and data["tags"]:
+            self.tags = data["tags"].split(",")
+
         self.kind = "misc"
-        self.stringify_ignore_fields = ["kind", "stringify_ignore_fields", "bibtex_key"]
+        self.stringify_ignore_fields = [
+            "kind",
+            "stringify_ignore_fields",
+            "bibtex_key",
+            "tags",
+        ]
 
     def validate(self):
         if len(self.bibtex_key) == 0:
@@ -35,9 +45,8 @@ class Source:
         if not re.compile("^[0-9]+$").match(self.year):
             raise UserInputError("Julkaisuvuoden on oltava numero")
 
-        # siirretty samankaltaisten avainten tarkistuksen viimeiseksi että testit toimii :D
-        # miksi?
-        if source_exists(self.bibtex_key):
+        # siirretty samanlaisten avainten tarkistuksen viimeiseksi että testit toimii :D
+        if source_exists_by_key(self.bibtex_key):
             raise UserInputError(f"Avain {self.bibtex_key} on jo käytössä")
 
     # str(objekti) muuntaa sen bibtex-muotoon
@@ -56,13 +65,3 @@ class Source:
             fields_bibtex += f"    {field} = {value},\n"
 
         return f"@{self.kind}" + "{" + f"{self.bibtex_key},\n{fields_bibtex}" + "}"
-
-    def download(self):
-
-        bibtex = ""
-        bibtex += f'@article {"{"}{self.bibtex_key},\n'
-        bibtex += f'title = "{self.title}",\n'
-        bibtex += f'year = "{self.year}",\n'
-        bibtex += f'author = "{self.author}"{"}"}\n\n'
-
-        return bibtex

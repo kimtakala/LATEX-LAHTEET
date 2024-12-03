@@ -8,12 +8,14 @@ from db_util import truncate_db
 from entities.article import Article
 from entities.book import Book
 from entities.inproceedings import Inproceedings
+from entities.tag import Tag
 from form_fields import get_fields_json
 from config import app
 from repositories.article_repository import ArticleRepository
 from repositories.book_repository import BookRepository
 from repositories.inproceedings_repository import InproceedingsRepository
 from repositories.source_repository import SourceRepository
+from repositories.tag_repository import TagRepository
 from util import UserInputError
 
 
@@ -158,6 +160,51 @@ def delete_source(source_id):
         flash(
             "Lähteen poistaminen epäonnistui teknisen virheen takia, \
             ota yhteyttä järjestelmänvalvojaan.",
+            "error",
+        )
+        print(error)
+        return redirect("/")
+
+
+@app.route("/delete_tag/<int:source_id>/<string:tag>", methods=["POST"])
+def delete_tag(source_id, tag):
+    tag_repo = TagRepository(DatabaseService())
+    try:
+        tag_repo.delete(source_id, tag)
+        flash("Tunniste poistettu onnistuneesti!", "success")
+        return redirect("/")
+    except Exception as error:  # pylint: disable=broad-exception-caught
+        flash(
+            "Tunnisteen poistaminen epäonnistui teknisen virheen takia, \
+            ota yhteyttä järjestelmänvalvojaan.",
+            "error",
+        )
+        print(error)
+        return redirect("/")
+
+
+@app.route("/tag", methods=["POST"])
+def tag_post():
+    tag_repo = TagRepository(DatabaseService())
+    form = request.form
+    try:
+        tag_repo.create(
+            Tag(
+                {
+                    "name": form["name"] if "name" in form else "",
+                    "source_id": form["source_id"] if "source_id" in form else "",
+                    "tag_id": 0,
+                }
+            )
+        )
+        flash("Tunniste lisätty onnistuneesti!", "success")
+        return redirect("/")
+    except UserInputError as error:
+        flash(str(error), "error")
+        return redirect("/")
+    except Exception as error:  # pylint: disable=broad-exception-caught
+        flash(
+            str(error),
             "error",
         )
         print(error)

@@ -16,15 +16,22 @@ class SourceRepository:
     def get(self, source_id: Optional[int] = None) -> list[Source]:
         sql = f"""
             SELECT
-                source_id,
-                bibtex_key,
-                title,
-                year,
-                author
+                s.source_id,
+                s.bibtex_key,
+                s.title,
+                s.year,
+                s.author,
+                STRING_AGG(t.name, ',') AS tags
 
-            FROM {SCHEMA_NAME}.source
+            FROM {SCHEMA_NAME}.source s
+
+            LEFT JOIN {SCHEMA_NAME}.tag t
+            ON t.source_id = s.source_id
 
             {f"WHERE s.source_id = '{source_id}'" if source_id else ""}
+
+            GROUP BY s.source_id
+            ORDER BY s.source_id
         """
         rows = self.database_service.fetch(sql)
 

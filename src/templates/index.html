@@ -12,30 +12,70 @@ endblock %} {% block body %}
 <div id="books">
     <div class="source-list">
         {% for source in sources %}
-        <div class="source">
+        <article class="source">
             <div class="info">
                 <div class="top-row">
-                    <div id="title-{{ loop.index0 }}" class="title">{{ source.title }}</div>
-                    <div id="key-{{ loop.index0 }}" class="key">{{ source.bibtex_key }}</div>
+                    <div id="title-{{ loop.index0 }}" class="title">
+                        {{ source.title }}
+                    </div>
+                    <div id="key-{{ loop.index0 }}" class="key">
+                        {{ source.bibtex_key }}
+                    </div>
                 </div>
-                <div id="author-{{ loop.index0 }}" class="author">{{ source.author }}</div>
-                <div id="year-{{ loop.index0 }}" class="year">{{ source.year }}</div>
-                <form
-                    action="{{ url_for('delete_source', source_id=source.source_id) }}"
-                    method="POST"
-                    onsubmit="return confirmDelete();"
-                >
-                    <button type="submit" id="delete-source-btn">
-                        <i class="fa-solid fa-trash"></i>
+                <div id="author-{{ loop.index0 }}" class="author">
+                    {{ source.author }}
+                </div>
+                <div id="year-{{ loop.index0 }}" class="year">
+                    {{ source.year }}
+                </div>
+                <div class="tags">
+                    {% for tag in source.tags %}
+                    <div class="tag">
+                        {{ tag }}
+                        <form
+                            action="/delete_tag/{{source.source_id}}/{{tag}}"
+                            method="POST"
+                        >
+                            <button class="delete" type="submit">
+                                <i class="fa-solid fa-x"></i>
+                            </button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                    <button
+                        class="add-tag"
+                        onclick="showAddTagForm({{source.source_id}})"
+                    >
+                        <i class="fa-solid fa-plus"></i>
                     </button>
-                </form>
+                </div>
+                <div class="buttons">
+                    <form
+                        action="{{ url_for('delete_source', source_id=source.source_id) }}"
+                        method="POST"
+                        onsubmit="return confirmDelete();"
+                    >
+                        <button
+                            type="submit"
+                            class="delete"
+                            id="delete-source-btn"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </article>
         {% else %}
         <div class="text-disabled">Ei lähteitä.</div>
         {% endfor %}
     </div>
-    <button id="download-btn" class="btn primary" title="Lataa lähteet" style="margin-top: 5px;">
+    <button
+        id="download-btn"
+        class="btn primary"
+        title="Lataa lähteet"
+        style="margin-top: 5px"
+    >
         Lataa lähteet
     </button>
 </div>
@@ -48,7 +88,7 @@ endblock %} {% block body %}
     action="/"
     method="POST"
     id="add-source-form"
-    class="{% if show_add_form %}show{% endif %}"
+    class="modal-form {% if show_add_form %}show{% endif %}"
 >
     <div class="inner">
         <div class="top-row">
@@ -71,6 +111,33 @@ endblock %} {% block body %}
             <div id="add-form-fields"></div>
 
             <button type="submit" id="source-form-btn" class="btn primary">
+                Lisää
+            </button>
+        </div>
+    </div>
+</form>
+
+<form action="/tag" method="POST" id="add-tag-form" class="modal-form">
+    <div class="inner">
+        <div class="top-row">
+            <h2>Lisää tunniste</h2>
+            <button class="close" type="button">
+                <i class="fa-solid fa-x"></i>
+            </button>
+        </div>
+
+        <div class="content">
+            <label for="tag-name">Nimi</label>
+            <input type="text" id="tag-name" name="name" placeholder="Nimi" />
+
+            <input
+                type="hidden"
+                name="source_id"
+                value=""
+                id="add-tag-source-id"
+            />
+
+            <button type="submit" id="tag-form-btn" class="btn primary">
                 Lisää
             </button>
         </div>

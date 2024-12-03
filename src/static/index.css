@@ -1,6 +1,6 @@
 /* NOTE: Kyseessä on index.html -templateen liittyvät tyylittelyt, ei pääasiallinen tyylitiedosto (main.css) */
 
-#add-source-form {
+.modal-form {
     opacity: 0;
     pointer-events: none;
     position: fixed;
@@ -16,12 +16,12 @@
     align-items: center;
 }
 
-#add-source-form.show {
+.modal-form.show {
     opacity: 1;
     pointer-events: initial;
 }
 
-#add-source-form .inner {
+.modal-form .inner {
     background-color: white;
     border-radius: var(--border-radius);
     margin: 0 1em;
@@ -31,13 +31,13 @@
     flex-direction: column;
 }
 
-#add-source-form .inner .top-row {
+.modal-form .inner .top-row {
     padding: 0.7em 0.6em;
     padding-left: 1.1em;
     padding-bottom: 0;
 }
 
-#add-source-form .inner .content {
+.modal-form .inner .content {
     display: flex;
     flex-direction: column;
     padding: 2em;
@@ -57,19 +57,19 @@
     padding-bottom: 0.2em;
 }
 
-#add-source-form h2 {
+.modal-form h2 {
     font-size: 1.2rem;
     font-weight: 500;
     margin-top: 0;
 }
 
-#add-source-form .top-row {
+.modal-form .top-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 }
 
-#add-source-form button[type='submit'] {
+.modal-form button[type='submit'] {
     align-self: flex-end;
     margin-top: 2em;
 }
@@ -101,7 +101,7 @@
     opacity: 1;
 }
 
-.source button[type='submit'] {
+.source button.delete {
     border: none;
     background: none;
     color: var(--color-red);
@@ -114,11 +114,11 @@
     opacity: 0;
 }
 
-.source button[type='submit']:hover {
+.source button.delete:hover {
     color: var(--color-red-dark);
 }
 
-.source form {
+.source .buttons {
     position: absolute;
     top: 0;
     right: 0;
@@ -135,6 +135,12 @@
 .source .info {
     display: flex;
     flex-direction: column;
+}
+
+.source .info .bottom-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .source .key {
@@ -160,4 +166,69 @@
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
     transition: all var(--transition-duration) ease-out;
+}
+
+.source .tags {
+    display: flex;
+    gap: 0.5em;
+    padding-top: 1em;
+    padding-bottom: 0.4em;
+}
+
+.source .tags .tag,
+.source .tags button.add-tag {
+    --h-pad: 0.8em;
+    --bg-color: var(--color-green);
+    background-color: var(--bg-color);
+    color: white;
+    padding: 0.2em var(--h-pad) 0.1em var(--h-pad);
+    border-radius: 1em;
+    position: relative;
+    cursor: default;
+    border: none;
+}
+
+.source .tags button.add-tag {
+    cursor: pointer;
+    background-color: var(--color-green);
+    transition: background-color var(--transition-duration) ease-out;
+    padding-top: 0.3em;
+}
+
+.source .tags button.add-tag:hover {
+    background-color: var(--color-green-dark);
+}
+
+.source .tag button.delete {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition:
+        opacity var(--transition-duration) ease-out,
+        color var(--transition-duration) ease-out;
+}
+
+.source .tag:hover button.delete {
+    opacity: 1;
+}
+
+.source .tag button.delete:hover {
+    color: white;
+}
+
+.source .tag button.delete i {
+    background: radial-gradient(var(--bg-color) 50%, transparent 100%);
+    padding: 0.4em 0.6em 0.2em 0.2em;
+    font-size: 0.8rem;
+    display: block;
+
+    transform: scaleX(1.1);
 }

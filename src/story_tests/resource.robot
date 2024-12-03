@@ -39,6 +39,10 @@ Publish Source
     Wait Until Element Is Visible  source-form-btn
     Click Button  source-form-btn
 
+Publish Tag
+    Wait Until Element Is Visible  tag-form-btn
+    Click Button  tag-form-btn
+
 Select Type
     [Arguments]  ${type}
     Select From List By Value  id=add-field-type  ${type}
@@ -63,6 +67,11 @@ Page Should Contain Key
     [Arguments]  ${key}  ${article-index}=0
     Wait Until Element Is Visible  key-${article-index}
     Element Should Contain  key-${article-index}  ${key}
+
+Page Should Not Contain Key
+    [Arguments]  ${key}  ${article-index}=0
+    Wait Until Element Is Visible  key-${article-index}
+    Element Should Not Contain  key-${article-index}  ${key}
 
 Page Should Contain Title
     [Arguments]  ${title}  ${article-index}=0

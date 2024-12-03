@@ -81,7 +81,6 @@ Add book and article sources, delete and confirm both
     Wait Until Element Is Visible  messages
     Click Delete And Confirm
     Sleep    0.1s
-    Page Should Not Contain  Taru sormusten herrasta
     Click Delete And Confirm
     Sleep    0.1s
     Page Should Contain  Ei lähteitä

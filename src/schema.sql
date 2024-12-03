@@ -48,5 +48,9 @@ CREATE TABLE lahteet.source_inproceedings (
     volume INTEGER
 );
 
-
-
+CREATE TABLE lahteet.tag (
+    tag_id SERIAL PRIMARY KEY,
+    source_id INTEGER NOT NULL REFERENCES lahteet.source ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    UNIQUE(source_id, name)
+);
