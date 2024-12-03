@@ -3,20 +3,23 @@ from io import BytesIO
 from flask import flash, redirect, render_template, request, send_file
 
 from bibtex_convert import to_bibtex
+from config import app
 from database_service import DatabaseService
 from db_util import truncate_db
+from form_fields import get_fields_json
+from util import UserInputError
+
 from entities.article import Article
 from entities.book import Book
 from entities.inproceedings import Inproceedings
 from entities.tag import Tag
-from form_fields import get_fields_json
-from config import app
+
 from repositories.article_repository import ArticleRepository
 from repositories.book_repository import BookRepository
 from repositories.inproceedings_repository import InproceedingsRepository
 from repositories.source_repository import SourceRepository
 from repositories.tag_repository import TagRepository
-from util import UserInputError
+
 
 
 @app.route("/", methods=["GET"])

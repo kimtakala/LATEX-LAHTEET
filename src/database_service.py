@@ -1,5 +1,6 @@
-from typing import Optional
 from sqlalchemy import text
+from typing import Optional
+
 from config import db
 
 
