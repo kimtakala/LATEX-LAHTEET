@@ -42,3 +42,4 @@ Mikäli tarkastelet tietokantaa `psql` -ohjelmalla, projektin käyttämään ske
   - järkevä nimeäminen
   - selkeä ja perusteltu arkkitehtuuri
   - yhtenäinen koodityyli
+
