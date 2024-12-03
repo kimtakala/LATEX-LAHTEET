@@ -1,4 +1,5 @@
 from sqlalchemy import text
+
 from config import SCHEMA_NAME, db
 
 
